@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreRequest;
 use App\Models\Book;
+use Spatie\MediaLibrary\MediaCollections\Exceptions\FileDoesNotExist;
+use Spatie\MediaLibrary\MediaCollections\Exceptions\FileIsTooBig;
 
 
 class BookController extends Controller
@@ -26,13 +28,21 @@ class BookController extends Controller
         return view('books.create');
     }
 
+    /**
+     * @throws FileIsTooBig
+     * @throws FileDoesNotExist
+     */
     public function store(StoreRequest $request)
     {
 
         $data = $request->validated();
+        $book = Book::create($data);
 
-        Book::create($data);
 
+        if ($request->hasFile('image')) {
+            $book->addMediaFromRequest('image')
+                ->toMediaCollection('book_images');
+        }
         return redirect()->route('book.index');
     }
 

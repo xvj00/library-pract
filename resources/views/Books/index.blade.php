@@ -28,6 +28,10 @@
                 </div>
                 <div>Описание: {{ $book -> description }}</div>
 
+                <img src="{{ $book->getFirstMediaUrl('book_images') }}">
+
+
+
 
                 <div>
                     <a href="{{route('book.edit', $book -> id)}}">Изменить</a>

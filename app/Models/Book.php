@@ -2,12 +2,16 @@
 
 namespace App\Models;
 
+use Spatie\MediaLibrary\HasMedia;
+use Spatie\MediaLibrary\InteractsWithMedia;
 use Illuminate\Database\Eloquent\Model;
 
-class Book extends Model
+class Book extends Model implements HasMedia
 {
+
+    use InteractsWithMedia;
     protected $table = 'books';
-    protected $guarded = false;
+    protected $guarded = ['image'];
 
 
 
@@ -20,5 +24,9 @@ class Book extends Model
     public function genres()
     {
         return $this->belongsToMany(Genre::class, 'genre_books', 'book_id', 'genre_id');
+    }
+
+    public function edition(){
+        return $this->belongsTo(Edition::class, 'edition_id');
     }
 }

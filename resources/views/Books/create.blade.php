@@ -5,7 +5,7 @@
     <h1>Create</h1>
     <hr>
     <div>
-        <form action="{{route('book.store')}}" method="post">
+        <form action="{{route('book.store')}}" method="post"  enctype="multipart/form-data">
             @csrf
             <div><input type="text" name="title" placeholder="title" value="{{ old('title') }}">
                 <div>
@@ -20,6 +20,11 @@
                     {{ $message }}
                     @enderror
                 </div>
+            </div>
+
+            <div class="form-group">
+                <label for="image">Book Image</label>
+                <input type="file" name="image" class="form-control">
             </div>
 
             <div>

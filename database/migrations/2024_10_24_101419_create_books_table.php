@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('title');
 
             $table->string('description')->nullable();
-
+            $table->foreignId('edition_id')-> nullable()->constrained()->cascadeOnDelete(); // nullable нужно будет потом убрать
             $table->timestamps();
         });
     }
