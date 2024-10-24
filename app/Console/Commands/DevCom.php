@@ -5,7 +5,6 @@ namespace App\Console\Commands;
 use App\Models\Author;
 use App\Models\Book;
 use Illuminate\Console\Command;
-use Illuminate\Support\Facades\Auth;
 
 class DevCom extends Command
 {
@@ -30,8 +29,8 @@ class DevCom extends Command
     {
         $book = Book::find(1);
         $author = Author::find(1);
-        $book -> authors()->attach($author ->id);
+        $book->authors()->attach($author->id);
 
-        dd('хуй жопа');
+        dd('жопа');
     }
 }
