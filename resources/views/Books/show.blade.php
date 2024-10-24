@@ -2,26 +2,23 @@
 
 @section('content')
 
-
     <div>
 
         <hr>
         <div>
-            <div>Name: {{ $book -> name }}</div>
-            <div>Surname: {{ $book -> surname }}</div>
-            <div>Email: {{ $book -> email }}</div>
-            <div>Age: {{$book -> age}}</div>
-            <div>Decription: {{ $book -> description }}</div>
+            <div>Название: {{ $book -> title }}</div>
+            <div>Автор книги:
+                @foreach($book->authors as $author)
+                    {{ $author->name}} {{ $author->surname}}
+                @endforeach</div>
+            <div>Описание: {{ $book -> description }}</div>
 
 
-
-                <a href="{{ route('book.index') }}">Назад</a>
+            <a href="{{ route('book.index') }}">Назад</a>
         </div>
         <hr>
 
 
-
-
-</div>
+    </div>
 
 @endsection

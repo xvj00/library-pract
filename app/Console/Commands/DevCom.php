@@ -32,6 +32,6 @@ class DevCom extends Command
         $author = Author::find(1);
         $book -> authors()->attach($author ->id);
 
-        dd($book ->toArray());
+        dd('хуй жопа');
     }
 }
