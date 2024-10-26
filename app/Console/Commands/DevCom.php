@@ -27,7 +27,7 @@ class DevCom extends Command
      */
     public function handle()
     {
-        $book = Book::find(1);
+        $book = Book::find(11);
         $author = Author::find(1);
         $book->authors()->attach($author->id);
 

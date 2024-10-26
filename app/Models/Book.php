@@ -29,4 +29,8 @@ class Book extends Model implements HasMedia
     public function edition(){
         return $this->belongsTo(Edition::class, 'edition_id');
     }
+
+    public function user(){
+        return $this->belongsTo(Reservation::class, 'user_id');
+    }
 }

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 
 use App\Http\Requests\StoreRequest;
+use App\Models\Author;
 use App\Models\Book;
 use Spatie\MediaLibrary\MediaCollections\Exceptions\FileDoesNotExist;
 use Spatie\MediaLibrary\MediaCollections\Exceptions\FileIsTooBig;
@@ -25,18 +26,21 @@ class BookController extends Controller
 
     public function create()
     {
-        return view('books.create');
+        $authors = Author::all();
+        return view('Books.create', compact('authors'));
     }
 
     /**
      * @throws FileIsTooBig
      * @throws FileDoesNotExist
      */
-    public function store(StoreRequest $request)
+    public function store(StoreRequest $request, Author $author)
     {
 
         $data = $request->validated();
         $book = Book::create($data);
+
+        $book->authors()->attach($request->author_id);
 
 
         if ($request->hasFile('image')) {

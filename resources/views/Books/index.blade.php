@@ -32,6 +32,10 @@
 
 
 
+                <div>
+                    <a href="{{route('book.show', $book -> id)}}">просмотреть</a>
+                </div>
+
 
                 <div>
                     <a href="{{route('book.edit', $book -> id)}}">Изменить</a>
