@@ -30,7 +30,9 @@ class Book extends Model implements HasMedia
         return $this->belongsTo(Edition::class, 'edition_id');
     }
 
-    public function user(){
-        return $this->belongsTo(Reservation::class, 'user_id');
+    public function reservation(){
+        return $this->belongsTo(Reservation::class, 'book_id');
     }
+
+
 }

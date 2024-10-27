@@ -13,7 +13,6 @@ class User extends Authenticatable
     use HasFactory, Notifiable;
 
 
-
     const  Role_Guest = 1;
     const  Role_Admin = 2;
     const  Role_Librarian = 3;
@@ -21,11 +20,12 @@ class User extends Authenticatable
     public static function getRoles(): array
     {
         return [
-            self::Role_Guest => 'guest',
-            self::Role_Admin => 'admin',
+            self::Role_Guest     => 'guest',
+            self::Role_Admin     => 'admin',
             self::Role_Librarian => 'librarian',
         ];
     }
+
     /**
      * The attributes that are mass assignable.
      *
@@ -56,12 +56,12 @@ class User extends Authenticatable
     {
         return [
             'email_verified_at' => 'datetime',
-            'password' => 'hashed',
+            'password'          => 'hashed',
         ];
     }
 
-    public function books()
+    public function reservation()
     {
-        return $this->hasMany(Book::class);
+        return $this->belongsTo(Reservation::class, 'user_id');
     }
 }

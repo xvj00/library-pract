@@ -34,7 +34,7 @@ class BookController extends Controller
      * @throws FileIsTooBig
      * @throws FileDoesNotExist
      */
-    public function store(StoreRequest $request, Author $author)
+    public function store(StoreRequest $request)
     {
 
         $data = $request->validated();
