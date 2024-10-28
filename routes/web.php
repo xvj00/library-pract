@@ -20,7 +20,7 @@ Route::get('/dashboard', function () {
 
 Route::middleware('auth')->group(function () {
     Route::get('/book', [BookController::class, 'index'])->name('book.index');
-    Route::get('/book/{book}', [BookController::class, 'show'])->name('book.show');
+
 
 
     Route::middleware('role:librarian')->group(function () {
@@ -32,6 +32,8 @@ Route::middleware('auth')->group(function () {
 
 
     });
+
+    Route::get('/book/{book}', [BookController::class, 'show'])->name('book.show');
 
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
