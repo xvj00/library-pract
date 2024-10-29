@@ -9,8 +9,6 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::resource('admin', AdminController::class);
-
 
 //Route::get('/admin', [AdminController::class, 'index'])->name('admin.index');
 //Route::delete('/admin/{user}', [AdminController::class, 'destroy'])->name('admin.destroy');
@@ -27,7 +25,9 @@ Route::get('/dashboard', function () {
 Route::middleware('auth')->group(function () {
     Route::get('/book', [BookController::class, 'index'])->name('book.index');
 
-
+    Route::middleware('role:admin')->group(function () {
+        Route::resource('admin', AdminController::class);
+    });
 
     Route::middleware('role:librarian')->group(function () {
         Route::get('/book/create', [BookController::class, 'create'])->name('book.create');

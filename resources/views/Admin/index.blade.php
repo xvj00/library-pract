@@ -14,9 +14,9 @@
                         <div class="col-12">
                             <div class="card">
                                 <div class="card-body">
-                                    <h4 class="card-title">Basic Data Table</h4>
+                                    <h4 class="card-title">Админ панель</h4>
                                     <p class="card-subtitle mb-4">
-                                        ВОН ТЕ ПОЛЬЗОВАТЕЛИ ЕПТА
+                                        Users Table
 
                                     </p>
 

@@ -23,7 +23,13 @@
             crossorigin="anonymous"></script>
 </head>
 <body class="font-sans text-gray-900 antialiased">
-
+<form method="POST" action="http://localhost:8000/logout">
+    <input type="hidden" name="_token" value="6BQdJVQScYbB5W2z4B04ESCA4HTFBn9Do7v7muBs" autocomplete="off">
+    <a href="http://localhost:8000/logout" onclick="event.preventDefault();
+                                        this.closest('form').submit();">
+        Log Out
+    </a>
+</form>
 
 @yield('content')
 
