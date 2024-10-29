@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\BookController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
@@ -8,6 +9,11 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::resource('admin', AdminController::class);
+
+
+//Route::get('/admin', [AdminController::class, 'index'])->name('admin.index');
+//Route::delete('/admin/{user}', [AdminController::class, 'destroy'])->name('admin.destroy');
 
 //Route::get('/books', [BookController::class, 'index']);
 //Route::get('/books', [BookController::class, 'create']);

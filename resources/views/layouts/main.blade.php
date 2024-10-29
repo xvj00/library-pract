@@ -9,7 +9,7 @@
     <title>Books</title>
 </head>
 <body>
-<h1>Владик пидор</h1>
+<h1>Владик ещекере</h1>
 <h1>Navigation</h1>
 
 
