@@ -2,17 +2,17 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Model;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
-use Illuminate\Database\Eloquent\Model;
 
 class Book extends Model implements HasMedia
 {
 
     use InteractsWithMedia;
+
     protected $table = 'books';
     protected $guarded = ['image'];
-
 
 
     public function authors()
@@ -26,13 +26,19 @@ class Book extends Model implements HasMedia
         return $this->belongsToMany(Genre::class, 'genre_books', 'book_id', 'genre_id');
     }
 
-    public function edition(){
+    public function edition()
+    {
         return $this->belongsTo(Edition::class, 'edition_id');
     }
 
-    public function reservation(){
+    public function reservation()
+    {
         return $this->belongsTo(Reservation::class, 'book_id');
     }
 
+    public function reviews()
+    {
+        return $this->hasMany(Review::class, 'book_id');
+    }
 
 }

@@ -25,9 +25,7 @@ Route::get('/dashboard', function () {
 Route::middleware('auth')->group(function () {
     Route::get('/book', [BookController::class, 'index'])->name('book.index');
 
-    Route::middleware('role:admin')->group(function () {
-        Route::resource('admin', AdminController::class);
-    });
+
 
     Route::middleware('role:librarian')->group(function () {
         Route::get('/book/create', [BookController::class, 'create'])->name('book.create');
@@ -37,6 +35,10 @@ Route::middleware('auth')->group(function () {
         Route::delete('/book/{book}/destroy', [BookController::class, 'destroy'])->name('book.destroy');
 
 
+    });
+
+    Route::middleware('role:admin')->group(function () {
+        Route::resource('admin', AdminController::class);
     });
 
     Route::get('/book/{book}', [BookController::class, 'show'])->name('book.show');
