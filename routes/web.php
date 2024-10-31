@@ -37,9 +37,9 @@ Route::middleware('auth')->group(function () {
 
     });
 
-    Route::middleware('role:admin')->group(function () {
+   // Route::middleware('role:admin')->group(function () {
         Route::resource('admin', AdminController::class);
-    });
+//   });
 
     Route::get('/book/{book}', [BookController::class, 'show'])->name('book.show');
 

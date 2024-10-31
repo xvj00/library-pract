@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <title>Laravel</title>
-
+    @livewireStyles
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet"/>
@@ -899,14 +899,14 @@
 
                         @endauth
 
-                            @if (auth() -> user() -> role == 'admin')
+
                                 <a
                                     href="{{ route('admin.index') }}"
                                     class="rounded-md px-3 py-2 text-black ring-1 ring-transparent transition hover:text-black/70 focus:outline-none focus-visible:ring-[#FF2D20] dark:text-white dark:hover:text-white/80 dark:focus-visible:ring-white"
                                 >
                                     Admin panel
                                 </a>
-                            @endif
+
 
                     </nav>
                 @endif
@@ -1096,5 +1096,6 @@
         </div>
     </div>
 </div>
+@livewireScripts
 </body>
 </html>

@@ -4,6 +4,7 @@ namespace App\Console\Commands;
 
 use App\Models\Author;
 use App\Models\Book;
+use App\Models\User;
 use Illuminate\Console\Command;
 
 class DevCom extends Command
@@ -27,10 +28,11 @@ class DevCom extends Command
      */
     public function handle()
     {
-        $book = Book::find(11);
-        $author = Author::find(1);
-        $book->authors()->attach($author->id);
+        $user = User::find(2);
 
-        dd('жопа');
+        $user -> delete();
+
+        dd($user);
+
     }
 }

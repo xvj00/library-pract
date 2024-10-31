@@ -1,49 +1,43 @@
 @extends('layouts.main')
 
 @section('content')
-
-    <h1>Create</h1>
-    <hr>
-    <div>
-        <form action="{{route('book.store')}}" method="post" enctype="multipart/form-data">
+    <div class="container mt-5">
+        <h1 class="text-center mb-4">Создать книгу</h1>
+        <hr>
+        <form action="{{ route('book.store') }}" method="post" enctype="multipart/form-data">
             @csrf
-            <div><input type="text" name="title" placeholder="title" value="{{ old('title') }}">
-                <div>
-                    @error('title')
-                    {{ $message }}
-                    @enderror
-                </div>
+            <div class="mb-3">
+                <label for="title" class="form-label">Название</label>
+                <input type="text" name="title" class="form-control" placeholder="Название" value="{{ old('title') }}">
+                @error('title')
+                <div class="alert alert-danger mt-2">{{ $message }}</div>
+                @enderror
             </div>
-            <div><textarea name="description" placeholder="Описание">{{ old('description') }}</textarea>
-                <div>
-                    @error('description')
-                    {{ $message }}
-                    @enderror
-                </div>
+            <div class="mb-3">
+                <label for="description" class="form-label">Описание</label>
+                <textarea name="description" class="form-control" placeholder="Описание">{{ old('description') }}</textarea>
+                @error('description')
+                <div class="alert alert-danger mt-2">{{ $message }}</div>
+                @enderror
             </div>
-
-            <div>
-                <select name="author_id">
+            <div class="mb-3">
+                <label for="author_id" class="form-label">Автор</label>
+                <select name="author_id" class="form-select">
                     @foreach($authors as $author)
-                        <option value="{{$author->id}}">{{ $author->name}} {{ $author->surname}}</option>
+                        <option value="{{ $author->id }}">{{ $author->name }} {{ $author->surname }}</option>
                     @endforeach
                 </select>
-                <div>
-                    @error('title')
-                    {{ $message }}
-                    @enderror
-                </div>
+                @error('author_id')
+                <div class="alert alert-danger mt-2">{{ $message }}</div>
+                @enderror
             </div>
-
-            <div class="form-group">
-                <label for="image">Book Image</label>
+            <div class="mb-3">
+                <label for="image" class="form-label">Изображение книги</label>
                 <input type="file" name="image" class="form-control">
             </div>
-
-            <div>
-                <button type="submit">Добавить в бд</button>
+            <div class="text-center">
+                <button type="submit" class="btn btn-primary">Добавить в базу данных</button>
             </div>
         </form>
     </div>
-
 @endsection
