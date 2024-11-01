@@ -10,7 +10,8 @@
             @foreach($books as $book)
                 <div class="col-md-6 mb-4">
                     <div class="card">
-                        <img src="{{ $book->getFirstMediaUrl('book_images') }}" class="card-img-top" alt="Обложка книги">
+                        <img src="{{ $book->getFirstMediaUrl('book_images') }}" class="card-img-top"
+                             alt="Обложка книги">
                         <div class="card-body">
                             <h5 class="card-title">{{ $book->title }}</h5>
                             <p class="card-text">
@@ -19,10 +20,17 @@
                                     {{ $author->name }} {{ $author->surname }}
                                 @endforeach
                             </p>
+
+                            <p class="card-text">
+                                Жанры:
+                                @foreach($book->genres as $genre)
+                                   | {{ $genre->title }} |
+                                @endforeach
+                            </p>
                             <p class="card-text">
                                 Издательство:
 
-                                    {{ $book -> edition ->title }}
+                                {{ $book -> edition ->title }}
 
                             </p>
                             <p class="card-text">Описание: {{ $book->description }}</p>
@@ -34,14 +42,29 @@
                                     @method('DELETE')
                                     <button type="submit" class="btn btn-danger">Удалить</button>
                                 </form>
+                                <!-- Форма бронирования -->
+
+                                                @if(!$book->isReserved())
+                                                    <form
+                                                        action="{{ route('reservations.store', ['book_id' => $book->id]) }}"
+                                                        method="post" class="d-inline">
+                                                        @csrf
+                                                        <button type="submit" class="btn btn-danger">Забронировать
+                                                        </button>
+                                                    </form>
+                                                @else
+                                                    <button class="btn btn-secondary" disabled>Забронировано</button>
+                                                @endif
+
+
+                                            </div>
+                                        </div>
+                                    </div>
                             </div>
+                            @endforeach
+                        </div>
+                        <div class="my-nav">
+                            {{$books->withQueryString()->links('pagination::bootstrap-4')}}
                         </div>
                     </div>
-                </div>
-            @endforeach
-        </div>
-        <div class="my-nav">
-            {{$books->withQueryString()->links('pagination::bootstrap-4')}}
-        </div>
-    </div>
 @endsection

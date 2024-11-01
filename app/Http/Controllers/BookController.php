@@ -6,6 +6,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreRequest;
 use App\Models\Author;
 use App\Models\Book;
+use App\Models\Genre;
 use Spatie\MediaLibrary\MediaCollections\Exceptions\FileDoesNotExist;
 use Spatie\MediaLibrary\MediaCollections\Exceptions\FileIsTooBig;
 
@@ -26,8 +27,9 @@ class BookController extends Controller
 
     public function create()
     {
+        $genres = Genre::all();
         $authors = Author::all();
-        return view('Books.create', compact('authors'));
+        return view('Books.create', compact('authors', 'genres'));
     }
 
     /**

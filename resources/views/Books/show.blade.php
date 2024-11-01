@@ -14,6 +14,12 @@
                     @endforeach
                 </p>
                 <p class="card-text">
+                    Жанры:
+                    @foreach($book->genres as $genre)
+                        | {{ $genre->title }} |
+                    @endforeach
+                </p>
+                <p class="card-text">
                     <strong>Описание:</strong> {{ $book->description }}
                 </p>
 

@@ -1,11 +1,11 @@
 <?php
 
+use App\Enums\ReservationsStatus;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration
-{
+return new class extends Migration {
     /**
      * Run the migrations.
      */
@@ -17,7 +17,7 @@ return new class extends Migration
             $table->foreignId('user_id')->index()->constrained('users')->CascadeOnDelete();
             $table->foreignId('book_id')->index()->constrained('books')->CascadeOnDelete();
 
-            $table->boolean('status')->default(true);
+            $table->enum('status', ['pending','booked', 'canceled'])->default('pending');
 
             $table->timestamps();
         });

@@ -3,6 +3,7 @@
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\BookController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\ReservationController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -36,6 +37,7 @@ Route::middleware('auth')->group(function () {
 
 
     });
+    Route::resource('reservations', ReservationController::class);
 
    // Route::middleware('role:admin')->group(function () {
         Route::resource('admin', AdminController::class);

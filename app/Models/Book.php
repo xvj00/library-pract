@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Enums\ReservationsStatus;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Spatie\MediaLibrary\HasMedia;
@@ -32,10 +33,14 @@ class Book extends Model implements HasMedia
         return $this->belongsTo(Edition::class, 'edition_id');
     }
 
-    public function reservation()
+    public function reservations()
     {
-        return $this->belongsTo(Reservation::class, 'book_id');
+        return $this->hasMany(Reservation::class, 'book_id');
     }
+    public function isReserved() {
+        return $this->reservations()->where('status', ReservationsStatus::BOOKED)->exists();
+    }
+
 
     public function reviews()
     {
