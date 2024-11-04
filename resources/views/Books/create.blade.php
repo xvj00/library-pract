@@ -15,7 +15,8 @@
             </div>
             <div class="mb-3">
                 <label for="description" class="form-label">Описание</label>
-                <textarea name="description" class="form-control" placeholder="Описание">{{ old('description') }}</textarea>
+                <textarea name="description" class="form-control"
+                          placeholder="Описание">{{ old('description') }}</textarea>
                 @error('description')
                 <div class="alert alert-danger mt-2">{{ $message }}</div>
                 @enderror
@@ -27,9 +28,28 @@
                         <option value="{{ $author->id }}">{{ $author->name }} {{ $author->surname }}</option>
                     @endforeach
                 </select>
-                @error('author_id')
-                <div class="alert alert-danger mt-2">{{ $message }}</div>
-                @enderror
+
+            </div>
+
+            <div class="mb-3">
+                <label for="genre_id" class="form-label">Жанры</label>
+                <select name="genre_id[]" multiple="multiple" class="form-select">
+                    @foreach($genres as $genre)
+                        <option value="{{ $genre->id }}">{{ $genre->title }}</option>
+                    @endforeach
+                </select>
+
+            <div class="mb-3">
+                <label for="edition_id" class="form-label">Издания</label>
+                <select name="edition_id" class="form-select">
+                    @foreach($editions as $edition)
+                        <option value="{{ $edition->id }}">{{ $edition->title}} </option>
+                    @endforeach
+                </select>
+
+            </div>
+
+
             </div>
             <div class="mb-3">
                 <label for="image" class="form-label">Изображение книги</label>

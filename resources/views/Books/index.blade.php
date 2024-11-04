@@ -4,7 +4,15 @@
     <div class="container my-4">
         <div class="text-end mb-3">
             <a href="{{ route('book.create') }}" class="btn btn-primary">Создать</a>
+            <a href="{{ route('author.create') }}" class="btn btn-primary">Добавить автора</a>
+            <a href="{{ route('genre.create') }}" class="btn btn-primary">Добавить жанр</a>
+            <a href="{{ route('edition.create') }}" class="btn btn-primary">Добавить издание</a>
         </div>
+
+
+
+
+
 
         <div class="row">
             @foreach($books as $book)
@@ -17,20 +25,17 @@
                             <p class="card-text">
                                 Автор:
                                 @foreach($book->authors as $author)
-                                    {{ $author->name }} {{ $author->surname }}
+                                    {{ $author->name }} {{ $author->surname }}, Возраст: {{$author->age}}
                                 @endforeach
                             </p>
 
                             <p class="card-text">
-                                Жанры:
-                                @foreach($book->genres as $genre)
-                                   | {{ $genre->title }} |
-                                @endforeach
+                                Жанры: {{ $book->genres->pluck('title')->implode(', ') }}
                             </p>
                             <p class="card-text">
                                 Издательство:
 
-                                {{ $book -> edition ->title }}
+                                {{ $book->edition ? $book->edition->title : 'Не указано' }}
 
                             </p>
                             <p class="card-text">Описание: {{ $book->description }}</p>

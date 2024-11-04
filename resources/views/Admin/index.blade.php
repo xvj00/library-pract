@@ -9,10 +9,11 @@
                         <div class="col-12">
                             <div class="card">
                                 <div class="card-body">
-                                    <h4 class="card-title">Админ панель</h4>
-                                    <p class="card-subtitle mb-4">Users Table</p>
+                                    <h4 class="card-title">Users Table</h4>
+
                                     <a href="{{ route('admin.create') }}" class="btn btn-primary mb-3">Create</a>
-                                    <table id="basic-datatable" class="table table-striped table-bordered dt-responsive nowrap">
+                                    <table id="basic-datatable"
+                                           class="table table-striped table-bordered dt-responsive nowrap">
                                         <thead>
                                         <tr>
                                             <th>ID</th>
@@ -31,17 +32,66 @@
                                                 <td>{{ $user->email }}</td>
                                                 <td>{{ $user->role }}</td>
                                                 <td>
-                                                    <form action="{{ route('admin.destroy', $user->id) }}" method="post">
+                                                    <form action="{{ route('admin.destroy', $user->id) }}"
+                                                          method="post">
                                                         @csrf
                                                         @method('DELETE')
                                                         <input type="submit" class="btn btn-danger" value="Delete">
                                                     </form>
                                                 </td>
                                                 <td>
-                                                    <a class="btn btn-success" href="{{ route('admin.edit', $user->id) }}">Update</a>
+                                                    <a class="btn btn-success"
+                                                       href="{{ route('admin.edit', $user->id) }}">Update</a>
                                                 </td>
                                             </tr>
                                         @endforeach
+
+                                        <table id="basic-datatable"
+                                               class="table table-striped table-bordered dt-responsive nowrap">
+                                            <thead>
+                                            <h4 class="card-title">Deleted Users Table</h4>
+                                            <tr>
+                                                <th>ID</th>
+                                                <th>Name</th>
+                                                <th>Email</th>
+                                                <th>Role</th>
+                                                <th>Delete</th>
+                                                <th>ForceDelete</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            @foreach($users as $user)
+                                                @if($user->deleted_at !== null)
+                                                    <tr>
+                                                        <td>{{ $user->id }}</td>
+                                                        <td>{{ $user->name }}</td>
+                                                        <td>{{ $user->email }}</td>
+                                                        <td>{{ $user->role }}</td>
+                                                        <td>
+                                                            <form action="{{ route('admin.restore', $user->id) }}" method="post">
+                                                                @csrf
+                                                                <button type="submit" class="btn btn-warning">Восстановить</button>
+                                                            </form>
+                                                        </td>
+                                                        <td>
+                                                            <form action="{{ route('admin.forceDelete', $user->id) }}" method="post">
+                                                                @csrf
+                                                                @method('DELETE')
+                                                                <button type="submit" class="btn btn-danger">Удалить навсегда</button>
+                                                            </form>
+                                                        </td>
+                                                    </tr>
+                                                @endif
+                                            @endforeach
+                                        </tbody>
+                                    </table>
+                                </div> <!-- end card body-->
+                            </div> <!-- end card -->
+
+
+                            <div class="card">
+                                <div class="card-body">
+
                                         </tbody>
                                     </table>
                                 </div> <!-- end card body-->

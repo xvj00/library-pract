@@ -11,7 +11,7 @@ class AdminController extends Controller
 {
     public function index()
     {
-        $users = User::all();
+        $users = User::withTrashed()->get();
         return view('admin.index', compact('users'));
 
     }
@@ -50,6 +50,16 @@ class AdminController extends Controller
 
     public function destroy(User $admin){
         $admin->delete();
+        return redirect()->route('admin.index');
+    }
+
+    public function restore($id){
+        User::withTrashed()->find($id)->restore();
+        return redirect()->route('admin.index');
+    }
+
+    public function forceDelete($id){
+        User::withTrashed()->find($id)->forceDelete();
         return redirect()->route('admin.index');
     }
 }

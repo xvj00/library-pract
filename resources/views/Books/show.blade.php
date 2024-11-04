@@ -10,14 +10,12 @@
                 <p class="card-text">
                     <strong>Автор книги:</strong>
                     @foreach($book->authors as $author)
-                        {{ $author->name }} {{ $author->surname }}
+                        {{ $author->name }} {{ $author->surname }}, Возраст: {{$author->age}}
                     @endforeach
                 </p>
                 <p class="card-text">
-                    Жанры:
-                    @foreach($book->genres as $genre)
-                        | {{ $genre->title }} |
-                    @endforeach
+                    <strong>Жанры:</strong>
+                    {{ $book->genres->pluck('title')->implode(', ') }}
                 </p>
                 <p class="card-text">
                     <strong>Описание:</strong> {{ $book->description }}
@@ -26,9 +24,10 @@
                 <p class="card-text">
                     <strong>Издательство:</strong>
 
-                    {{ $book -> edition ->title }}
+                    {{ $book->edition ? $book->edition->title : 'Не указано' }}
 
                 </p>
+
 
                 <img src="{{ $book->getFirstMediaUrl('book_images') }}" class="img-fluid" alt="Обложка книги">
             </div>
