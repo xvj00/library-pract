@@ -17,8 +17,8 @@ return new class extends Migration {
             $table->foreignId('user_id')->index()->constrained('users')->CascadeOnDelete();
             $table->foreignId('book_id')->index()->constrained('books')->CascadeOnDelete();
 
-            $table->enum('status', ['pending','booked', 'canceled'])->default('pending');
-
+            $table->enum('status', ['confirmed','booked', 'canceled'])->default('canceled');
+            $table->date('booking_date')->nullable();
             $table->timestamps();
         });
     }

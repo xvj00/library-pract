@@ -28,22 +28,25 @@ Route::get('/dashboard', function () {
 
 Route::middleware('auth')->group(function () {
     Route::get('/book', [BookController::class, 'index'])->name('book.index');
-
+    Route::get('user/reservations', [ReservationController::class, 'userReservations'])->name('reservation.user.index');
+    Route::post('reservations/{book}/cancel', [ReservationController::class, 'cancel'])->name('reservations.cancel');
 
     Route::middleware('role:librarian')->group(function () {
+        Route::get('reservations', [ReservationController::class, 'index'])->name('reservations.index');
+        Route::post('reservations/{book}/confirm', [ReservationController::class, 'confirm'])->name('reservations.confirm');
+
         Route::resource('author', AuthorController::class);
         Route::resource('genre', GenresController::class);
         Route::resource('edition', EditionController::class);
-        Route::resource('book', BookController::class);
-//        Route::get('/book/create', [BookController::class, 'create'])->name('book.create');
-//        Route::post('/book', [BookController::class, 'store'])->name('book.store');
-//        Route::get('/book/{book}/edit', [BookController::class, 'edit'])->name('book.edit');
-//        Route::patch('/book/{book}/update', [BookController::class, 'update'])->name('book.update');
-//        Route::delete('/book/{book}/destroy', [BookController::class, 'destroy'])->name('book.destroy');
+        Route::get('/book/create', [BookController::class, 'create'])->name('book.create');
+        Route::post('/book', [BookController::class, 'store'])->name('book.store');
+        Route::get('/book/{book}/edit', [BookController::class, 'edit'])->name('book.edit');
+        Route::patch('/book/{book}/update', [BookController::class, 'update'])->name('book.update');
+        Route::delete('/book/{book}/destroy', [BookController::class, 'destroy'])->name('book.destroy');
 
 
     });
-    Route::resource('reservations', ReservationController::class);
+    Route::post('reservations', [ReservationController::class, 'store'])->name('reservations.store');
 
     Route::middleware('role:admin')->group(function () {
         Route::resource('admin', AdminController::class);

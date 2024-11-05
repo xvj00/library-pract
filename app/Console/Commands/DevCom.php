@@ -2,9 +2,8 @@
 
 namespace App\Console\Commands;
 
-use App\Models\Author;
-use App\Models\Book;
-use App\Models\User;
+use App\Models\Reservation;
+use Carbon\Carbon;
 use Illuminate\Console\Command;
 
 class DevCom extends Command
@@ -28,11 +27,11 @@ class DevCom extends Command
      */
     public function handle()
     {
-        $user = User::find(2);
+        Reservation::where('status', 'BOOKED')
+            ->where('booking_date', '<', Carbon::now())
+            ->update(['status' => 'CANCELED']);
 
-        $user -> delete();
 
-        dd($user);
-
+        echo 'Очистка брони';
     }
 }

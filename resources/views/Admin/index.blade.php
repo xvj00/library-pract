@@ -26,6 +26,7 @@
                                         </thead>
                                         <tbody>
                                         @foreach($users as $user)
+                                            @if($user -> deleted_at == null)
                                             <tr>
                                                 <td>{{ $user->id }}</td>
                                                 <td>{{ $user->name }}</td>
@@ -44,6 +45,7 @@
                                                        href="{{ route('admin.edit', $user->id) }}">Update</a>
                                                 </td>
                                             </tr>
+                                            @endif
                                         @endforeach
 
                                         <table id="basic-datatable"
@@ -55,7 +57,7 @@
                                                 <th>Name</th>
                                                 <th>Email</th>
                                                 <th>Role</th>
-                                                <th>Delete</th>
+                                                <th>Restore</th>
                                                 <th>ForceDelete</th>
                                             </tr>
                                             </thead>
@@ -70,14 +72,14 @@
                                                         <td>
                                                             <form action="{{ route('admin.restore', $user->id) }}" method="post">
                                                                 @csrf
-                                                                <button type="submit" class="btn btn-warning">Восстановить</button>
+                                                                <button type="submit" class="btn btn-warning">Restore</button>
                                                             </form>
                                                         </td>
                                                         <td>
                                                             <form action="{{ route('admin.forceDelete', $user->id) }}" method="post">
                                                                 @csrf
                                                                 @method('DELETE')
-                                                                <button type="submit" class="btn btn-danger">Удалить навсегда</button>
+                                                                <button type="submit" class="btn btn-danger">ForceDelete</button>
                                                             </form>
                                                         </td>
                                                     </tr>

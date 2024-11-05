@@ -10,10 +10,6 @@
         </div>
 
 
-
-
-
-
         <div class="row">
             @foreach($books as $book)
                 <div class="col-md-6 mb-4">
@@ -42,34 +38,36 @@
                             <div class="d-flex justify-content-between">
                                 <a href="{{ route('book.show', $book->id) }}" class="btn btn-info">Просмотреть</a>
                                 <a href="{{ route('book.edit', $book->id) }}" class="btn btn-warning">Изменить</a>
-                                <form action="{{ route('book.destroy', $book->id) }}" method="post" class="d-inline">
+                                <form action="{{ route('book.destroy', $book->id) }}" method="post" >
                                     @csrf
                                     @method('DELETE')
                                     <button type="submit" class="btn btn-danger">Удалить</button>
                                 </form>
                                 <!-- Форма бронирования -->
 
-                                                @if(!$book->isReserved())
-                                                    <form
-                                                        action="{{ route('reservations.store', ['book_id' => $book->id]) }}"
-                                                        method="post" class="d-inline">
-                                                        @csrf
-                                                        <button type="submit" class="btn btn-danger">Забронировать
-                                                        </button>
-                                                    </form>
-                                                @else
-                                                    <button class="btn btn-secondary" disabled>Забронировано</button>
-                                                @endif
 
 
-                                            </div>
-                                        </div>
-                                    </div>
+                                @if((!$book->isReserved()) && (!$book->isConfirmed()))
+                                    <form action="{{ route('reservations.store', ['book_id' => $book->id]) }}"
+                                          method="post" class="d-inline">
+                                        @csrf
+                                        <button type="submit" class="btn btn-danger">Забронировать</button>
+                                    </form>
+                                @elseif($book->isConfirmed())
+                                    <button class="btn btn-secondary" disabled>Книги нет в наличии</button>
+                                @else
+                                    <button class="btn btn-secondary" disabled>Забронировано</button>
+                                @endif
+
+
                             </div>
-                            @endforeach
-                        </div>
-                        <div class="my-nav">
-                            {{$books->withQueryString()->links('pagination::bootstrap-4')}}
                         </div>
                     </div>
+                </div>
+            @endforeach
+        </div>
+        <div class="my-nav">
+            {{$books->withQueryString()->links('pagination::bootstrap-4')}}
+        </div>
+    </div>
 @endsection
