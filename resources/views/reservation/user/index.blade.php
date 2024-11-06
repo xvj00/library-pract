@@ -30,7 +30,7 @@
                                 <td>{{ $reservation->status }}</td>
                                 <td>
                                     @if($reservation->status === 'booked')
-                                        <form action="{{ route('reservations.cancel', $reservation->book->id) }}" method="POST">
+                                        <form action="{{ route('reservation.user.cancel', $reservation->book->id) }}" method="POST">
                                             @csrf
                                             <button type="submit" class="btn btn-danger">Отменить</button>
                                         </form>

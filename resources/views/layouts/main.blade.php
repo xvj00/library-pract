@@ -24,7 +24,7 @@
 <body>
 <h1>Владик ещекере</h1>
 <h1>Navigation</h1>
-
+<a href="{{ route('dashboard') }}" class="btn btn-primary">Профиль</a>
 
 @yield('content')
 

@@ -8,6 +8,7 @@ use App\Http\Controllers\GenresController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ReservationController;
 use Illuminate\Support\Facades\Route;
+use \App\Http\Controllers\LibrarianController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -28,12 +29,14 @@ Route::get('/dashboard', function () {
 
 Route::middleware('auth')->group(function () {
     Route::get('/book', [BookController::class, 'index'])->name('book.index');
+    Route::post('reservations', [ReservationController::class, 'store'])->name('reservations.store');
     Route::get('user/reservations', [ReservationController::class, 'userReservations'])->name('reservation.user.index');
-    Route::post('reservations/{book}/cancel', [ReservationController::class, 'cancel'])->name('reservations.cancel');
-
+    Route::post('user/reservations/{book}/cancel', [ReservationController::class, 'cancel'])->name('reservation.user.cancel');
     Route::middleware('role:librarian')->group(function () {
-        Route::get('reservations', [ReservationController::class, 'index'])->name('reservations.index');
-        Route::post('reservations/{book}/confirm', [ReservationController::class, 'confirm'])->name('reservations.confirm');
+
+        Route::get('reservations', [LibrarianController::class, 'index'])->name('reservations.index');
+        Route::post('reservations/{book}/cancel', [LibrarianController::class, 'cancel'])->name('reservations.cancel');
+        Route::post('reservations/{book}/confirm', [LibrarianController::class, 'confirm'])->name('reservations.confirm');
 
         Route::resource('author', AuthorController::class);
         Route::resource('genre', GenresController::class);
@@ -46,7 +49,7 @@ Route::middleware('auth')->group(function () {
 
 
     });
-    Route::post('reservations', [ReservationController::class, 'store'])->name('reservations.store');
+
 
     Route::middleware('role:admin')->group(function () {
         Route::resource('admin', AdminController::class);
