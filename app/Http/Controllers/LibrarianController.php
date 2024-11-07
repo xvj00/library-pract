@@ -10,9 +10,27 @@ use Illuminate\Http\Request;
 
 class LibrarianController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $reservations = Reservation::all();
+        $reservations = Reservation::query();
+
+        if ($request->has('search') && $request->search != '') {
+            $searchTerm = '%' . $request->search . '%';
+
+            $reservations->where(function($query) use ($searchTerm) {
+                $query->orWhere('status', 'like', $searchTerm)
+                    ->orWhereHas('book', function ($query) use ($searchTerm) {
+                    $query->where('title', 'like', $searchTerm);
+                    })
+                    ->orWhereHas('user', function ($query) use ($searchTerm) {
+                        $query->where('name', 'like', $searchTerm);
+                    });
+            });
+        }
+
+        $reservations = $reservations->get();
+
+
         return view('reservation.index', compact('reservations'));
 
     }

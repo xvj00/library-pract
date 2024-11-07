@@ -3,23 +3,59 @@
 namespace App\Http\Controllers;
 
 
-use App\Http\Requests\BookUpdateRequest;
+use App\Http\Filters\Book\AuthorFilter;
+use App\Http\Filters\Book\EditionFilter;
+use App\Http\Filters\Book\GenreFilter;
+use App\Http\Requests\BookFilterRequest;
 use App\Http\Requests\BookStoreRequest;
+use App\Http\Requests\BookUpdateRequest;
 use App\Models\Author;
 use App\Models\Book;
 use App\Models\Edition;
 use App\Models\Genre;
+use http\Env\Request;
+use Illuminate\Pipeline\Pipeline;
 use Spatie\MediaLibrary\MediaCollections\Exceptions\FileDoesNotExist;
 use Spatie\MediaLibrary\MediaCollections\Exceptions\FileIsTooBig;
 
 
 class BookController extends Controller
 {
-    public function index()
+    public function index(\Illuminate\Http\Request $request)
     {
+        $genres = Genre::all();
+        $authors = Author::all();
+        $editions = Edition::all();
 
-        $books = Book::query()->paginate(5);
-        return view('books.index', compact('books'));
+        // Начинаем с базового запроса к модели Book
+        $bookQuery = Book::query();
+
+        if($request->filled('title')){
+            $bookQuery->where('title', 'like', '%'.$request->title.'%');
+        }
+
+        if ($request->filled('author')) {
+            $bookQuery->whereHas('authors', function ($query) use ($request) {
+                $query->where('name', 'like', '%' . $request->author . '%')
+                ->orWhere('surname', 'like', '%' . $request->author . '%');;
+            });
+        }
+
+        if ($request->filled('genre')) {
+            $bookQuery->whereHas('genres', function ($query) use ($request) {
+                $query->where('genre_id',$request->genre);
+            });
+        }
+
+        if ($request->filled('edition')) {
+            $bookQuery->where('edition_id', $request->edition);
+        }
+
+        // Выполняем запрос с пагинацией
+        $books = $bookQuery->paginate(5);
+
+        // Передаем данные в представление
+        return view('books.index', compact('books', 'genres', 'authors', 'editions'));
 
     }
 

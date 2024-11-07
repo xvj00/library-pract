@@ -9,6 +9,18 @@
     <div class="container my-4">
         <h2>Список забронированных книг</h2>
 
+        <form method="GET" action="{{ route('reservations.index') }}" class="container my-4">
+            <div class="row g-3">
+                <div class="col-md-3">
+                    <input type="text" class="form-control" id="search" name="search"
+                           placeholder="Поиск" value="{{ request('search') }}">
+                </div>
+                <div class="col-md-3 d-flex align-items-end">
+                    <button type="submit" class="btn btn-primary ">Применить фильтр</button>
+                    <a href="{{ route('reservations.index') }}" class="btn btn-secondary ms-2">Сбросить фильтр</a>
+                </div>
+            </div>
+        </form>
         @if($reservations->isEmpty())
             <p>Нет активных бронирований.</p>
         @else

@@ -2,6 +2,7 @@
 
 namespace App\Console\Commands;
 
+use App\Enums\ReservationsStatus;
 use App\Models\Reservation;
 use Carbon\Carbon;
 use Illuminate\Console\Command;
@@ -27,9 +28,9 @@ class DevCom extends Command
      */
     public function handle()
     {
-        Reservation::where('status', 'BOOKED')
+        Reservation::where('status', ReservationsStatus::BOOKED)
             ->where('booking_date', '<', Carbon::now())
-            ->update(['status' => 'CANCELED']);
+            ->update(['status' => ReservationsStatus::CANCELED]);
 
 
         echo 'Очистка брони';

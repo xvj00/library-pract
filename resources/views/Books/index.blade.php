@@ -10,6 +10,60 @@
         </div>
 
 
+        <!-- Форма фильтрации -->
+        <form method="GET" action="{{ route('book.index') }}" class="container my-4">
+            <div class="row g-3">
+                <!-- Фильтр по автору -->
+                <div class="col-md-3">
+                    <label for="author" class="form-label">Автор</label>
+                    <input type="text" class="form-control" id="author" name="author" placeholder="Имя автора" value="{{ request('author') }}">
+                </div>
+
+                <!-- Фильтр по названию книги -->
+                <div class="col-md-3">
+                    <label for="title" class="form-label">Название книги</label>
+                    <input type="text" class="form-control" id="title" name="title" placeholder="Название книги" value="{{ request('title') }}">
+                </div>
+
+                <!-- Фильтр по жанру -->
+                <div class="col-md-3">
+                    <label for="genre" class="form-label">Жанр</label>
+                    <select class="form-select" id="genre" name="genre">
+                        <option value="">Все жанры</option>
+                        @foreach($genres as $genre)
+                            <option value="{{ $genre->id }}" {{ request('genre') == $genre->id ? 'selected' : '' }}>
+                                {{ $genre->title }}
+                            </option>
+                        @endforeach
+                    </select>
+                </div>
+
+                <!-- Фильтр по изданию -->
+                <div class="col-md-3">
+                    <label for="edition" class="form-label">Издание</label>
+                    <select class="form-select" id="edition" name="edition">
+                        <option value="">Все издания</option>
+                        @foreach($editions as $edition)
+                            <option value="{{ $edition->id }}" {{ request('edition') == $edition->id ? 'selected' : '' }}>
+                                {{ $edition->title }}
+                            </option>
+                        @endforeach
+                    </select>
+                </div>
+            </div>
+
+            <!-- Кнопки фильтрации и сброса -->
+            <div class="row mt-3">
+                <div class="col-md-3">
+                    <button type="submit" class="btn btn-primary w-100">Применить фильтр</button>
+                </div>
+                <div class="col-md-3">
+                    <a href="{{ route('book.index') }}" class="btn btn-secondary w-100">Сбросить фильтр</a>
+                </div>
+            </div>
+        </form>
+
+
         <div class="row">
             @foreach($books as $book)
                 <div class="col-md-6 mb-4">

@@ -1,5 +1,6 @@
 <?php
 
+use App\Console\Commands\DevCom;
 use Illuminate\Foundation\Inspiring;
 use Illuminate\Support\Facades\Artisan;
 
@@ -8,4 +9,5 @@ Artisan::command('inspire', function () {
 })->purpose('Display an inspiring quote')->hourly();
 
 
-\Illuminate\Support\Facades\Schedule::command(\App\Console\Commands\DevCom::class)->daily();
+
+\Illuminate\Support\Facades\Schedule::command(DevCom::class)->everyFiveSeconds();
