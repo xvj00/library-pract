@@ -13,6 +13,7 @@ use App\Models\Author;
 use App\Models\Book;
 use App\Models\Edition;
 use App\Models\Genre;
+use App\Models\Reservation;
 use http\Env\Request;
 use Illuminate\Pipeline\Pipeline;
 use Spatie\MediaLibrary\MediaCollections\Exceptions\FileDoesNotExist;
@@ -26,6 +27,7 @@ class BookController extends Controller
         $genres = Genre::all();
         $authors = Author::all();
         $editions = Edition::all();
+        $reservations = Reservation::all();
 
         // Начинаем с базового запроса к модели Book
         $bookQuery = Book::query();
@@ -51,11 +53,15 @@ class BookController extends Controller
             $bookQuery->where('edition_id', $request->edition);
         }
 
+        if($request->filled('status')){
+            $bookQuery->where('status', $request->status);
+        }
+
         // Выполняем запрос с пагинацией
         $books = $bookQuery->paginate(5);
 
         // Передаем данные в представление
-        return view('books.index', compact('books', 'genres', 'authors', 'editions'));
+        return view('books.index', compact('books', 'genres', 'authors', 'editions', 'reservations'));
 
     }
 

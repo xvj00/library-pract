@@ -52,12 +52,26 @@ class LibrarianController extends Controller
     public function cancel(Book $book)
     {
         $reservation = Reservation::where('book_id', $book->id)
-            ->where('status', ReservationsStatus::BOOKED)
+            ->where('status', ReservationsStatus::BOOKED)->orWhere('status', ReservationsStatus::CONFIRMED)
             ->where('booking_date', '>=', Carbon::now())
             ->first();
 
         if ($reservation) {
             $reservation->update(['status' => ReservationsStatus::CANCELED, 'booking_date' => null]);
+
+        }
+
+        return redirect()->route('reservations.index');
+    }
+
+    public function given(Book $book)
+    {
+        $reservation = Reservation::where('book_id', $book->id)
+            ->where('status', ReservationsStatus::CONFIRMED)
+            ->first();
+
+        if ($reservation) {
+            $reservation->update(['status' => ReservationsStatus::GIVEN, 'booking_date' => null]);
 
         }
 

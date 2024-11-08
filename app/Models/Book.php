@@ -17,10 +17,6 @@ class Book extends Model implements HasMedia
     protected $guarded = ['image'];
 
 
-    public function booked()
-    {
-
-    }
 
     public function authors()
     {
@@ -49,6 +45,11 @@ class Book extends Model implements HasMedia
     public function isConfirmed()
     {
         return $this->reservations()->where('status', ReservationsStatus::CONFIRMED)->exists();
+    }
+
+    public function isGiven()
+    {
+        return $this->reservations()->where('status', ReservationsStatus::GIVEN)->exists();
     }
 
     public function isCanceled()

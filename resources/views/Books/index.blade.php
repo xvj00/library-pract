@@ -9,7 +9,6 @@
             <a href="{{ route('edition.create') }}" class="btn btn-primary">Добавить издание</a>
         </div>
 
-
         <!-- Форма фильтрации -->
         <form method="GET" action="{{ route('book.index') }}" class="container my-4">
             <div class="row g-3">
@@ -63,65 +62,62 @@
             </div>
         </form>
 
-
         <div class="row">
             @foreach($books as $book)
                 <div class="col-md-6 mb-4">
                     <div class="card">
-                        <img src="{{ $book->getFirstMediaUrl('book_images') }}" class="card-img-top"
-                             alt="Обложка книги">
+                        <img src="{{ $book->getFirstMediaUrl('book_images') }}" class="card-img-top" alt="Обложка книги">
                         <div class="card-body">
                             <h5 class="card-title">{{ $book->title }}</h5>
                             <p class="card-text">
-                                Автор:
+                                <strong>Автор:</strong>
                                 @foreach($book->authors as $author)
-                                    {{ $author->name }} {{ $author->surname }}, Возраст: {{$author->age}}
+                                    {{ $author->name }} {{ $author->surname }} (Возраст: {{ $author->age }})
                                 @endforeach
                             </p>
 
                             <p class="card-text">
-                                Жанры: {{ $book->genres->pluck('title')->implode(', ') }}
+                                <strong>Жанры:</strong> {{ $book->genres->pluck('title')->implode(', ') }}
                             </p>
+
                             <p class="card-text">
-                                Издательство:
-
-                                {{ $book->edition ? $book->edition->title : 'Не указано' }}
-
+                                <strong>Издательство:</strong> {{ $book->edition ? $book->edition->title : 'Не указано' }}
                             </p>
-                            <p class="card-text">Описание: {{ $book->description }}</p>
+
+                            <p class="card-text"><strong>Описание:</strong> {{ $book->description }}</p>
+
                             <div class="d-flex justify-content-between">
                                 <a href="{{ route('book.show', $book->id) }}" class="btn btn-info">Просмотреть</a>
                                 <a href="{{ route('book.edit', $book->id) }}" class="btn btn-warning">Изменить</a>
-                                <form action="{{ route('book.destroy', $book->id) }}" method="post" >
+
+                                <!-- Удаление с подтверждением -->
+                                <form action="{{ route('book.destroy', $book->id) }}" method="post" onsubmit="return confirm('Вы уверены, что хотите удалить эту книгу?');">
                                     @csrf
                                     @method('DELETE')
                                     <button type="submit" class="btn btn-danger">Удалить</button>
                                 </form>
+
                                 <!-- Форма бронирования -->
-
-
-
-                                @if((!$book->isReserved()) && (!$book->isConfirmed()))
-                                    <form action="{{ route('reservations.store', ['book_id' => $book->id]) }}"
-                                          method="post" class="d-inline">
+                                @if((!$book->isReserved()) && (!$book->isConfirmed()) && (!$book->isGiven()))
+                                    <form action="{{ route('reservations.store', ['book_id' => $book->id]) }}" method="post" class="d-inline">
                                         @csrf
                                         <button type="submit" class="btn btn-danger">Забронировать</button>
                                     </form>
-                                @elseif($book->isConfirmed())
+                                @elseif($book->isGiven())
                                     <button class="btn btn-secondary" disabled>Книги нет в наличии</button>
                                 @else
                                     <button class="btn btn-secondary" disabled>Забронировано</button>
                                 @endif
-
-
                             </div>
                         </div>
                     </div>
                 </div>
             @endforeach
         </div>
+
+        <!-- Пагинация -->
         <div class="my-nav">
-            {{$books->withQueryString()->links('pagination::bootstrap-4')}}
+            {{ $books->withQueryString()->links('pagination::bootstrap-4') }}
         </div>
     </div>
 @endsection

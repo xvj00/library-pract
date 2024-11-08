@@ -1,4 +1,4 @@
-@extends('layouts.admin')
+@extends('layouts.main')
 
 @section('content')
     <div id="layout-wrapper">
@@ -7,38 +7,34 @@
                 <div class="container-fluid">
                     <div class="row">
                         <div class="col-12">
-                            <div class="card">
-                                <div class="card-body">
-                                    <h4 class="card-title">Users Table</h4>
-
-                                    <form method="GET" action="{{ route('admin.index') }}" class="container my-4">
-                                        <div class="row g-3">
-                                            <div class="col-md-3">
-                                                <input type="text" class="form-control" id="search" name="search"
-                                                       placeholder="Поиск" value="{{ request('search') }}">
-                                            </div>
-
-
-
-                                            <div class="col-md-3 d-flex align-items-end">
-                                                <button type="submit" class="btn btn-primary w-100">Применить фильтр</button>
-                                                <a href="{{ route('admin.index') }}" class="btn btn-secondary w-100 ms-2">Сбросить фильтр</a>
-                                            </div>
+                            <div class="card shadow-lg border-0">
+                                <form method="GET" action="{{ route('admin.index') }}" class="container my-5 p-4 bg-light rounded shadow-sm">
+                                    <div class="row g-3 align-items-end">
+                                        <div class="col-md-6">
+                                            <input type="text" class="form-control form-control-lg border-primary shadow-sm" id="search"
+                                                   name="search"
+                                                   placeholder="🔍 Поиск по запросу" value="{{ request('search') }}">
                                         </div>
-                                    </form>
+                                        <div class="col-md-6 d-flex justify-content-end gap-2">
+                                            <button type="submit" class="btn btn-primary btn-lg px-4 shadow-sm">Применить фильтр</button>
+                                            <a href="{{ route('admin.index') }}" class="btn btn-outline-secondary btn-lg px-4 shadow-sm">Сбросить</a>
+                                        </div>
+                                    </div>
+                                </form>
 
-                                    <a href="{{ route('admin.create') }}" class="btn btn-primary mb-3">Create</a>
+                                <div class="card-body">
+                                    <h4 class="card-title text-center text-primary mb-4">Users Table</h4>
+                                    <a href="{{ route('admin.create') }}" class="btn btn-success mb-3">Create New User</a>
 
-                                    <!-- Таблица активных пользователей -->
-                                    <table id="basic-datatable" class="table table-striped table-bordered dt-responsive nowrap">
-                                        <thead>
+                                    <!-- Active Users Table -->
+                                    <table id="basic-datatable" class="table table-hover table-striped table-bordered dt-responsive nowrap align-middle">
+                                        <thead class="table-dark">
                                         <tr>
                                             <th>ID</th>
                                             <th>Name</th>
                                             <th>Email</th>
                                             <th>Role</th>
-                                            <th>Delete</th>
-                                            <th>Update</th>
+                                            <th>Actions</th>
                                         </tr>
                                         </thead>
                                         <tbody>
@@ -50,14 +46,14 @@
                                                     <td>{{ $user->email }}</td>
                                                     <td>{{ $user->role }}</td>
                                                     <td>
-                                                        <form action="{{ route('admin.destroy', $user->id) }}" method="post">
-                                                            @csrf
-                                                            @method('DELETE')
-                                                            <button type="submit" class="btn btn-danger">Delete</button>
-                                                        </form>
-                                                    </td>
-                                                    <td>
-                                                        <a class="btn btn-success" href="{{ route('admin.edit', $user->id) }}">Update</a>
+                                                        <div class="d-flex gap-2">
+                                                            <form action="{{ route('admin.destroy', $user->id) }}" method="post" class="mb-0">
+                                                                @csrf
+                                                                @method('DELETE')
+                                                                <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                                                            </form>
+                                                            <a class="btn btn-success btn-sm" href="{{ route('admin.edit', $user->id) }}">Update</a>
+                                                        </div>
                                                     </td>
                                                 </tr>
                                             @endif
@@ -65,10 +61,10 @@
                                         </tbody>
                                     </table>
 
-                                    <!-- Таблица удаленных пользователей -->
-                                    <h4 class="card-title mt-4">Deleted Users Table</h4>
-                                    <table id="deleted-datatable" class="table table-striped table-bordered dt-responsive nowrap">
-                                        <thead>
+                                    <!-- Deleted Users Table -->
+                                    <h4 class="card-title text-center text-danger mt-5">Deleted Users Table</h4>
+                                    <table id="deleted-datatable" class="table table-hover table-striped table-bordered dt-responsive nowrap align-middle">
+                                        <thead class="table-secondary">
                                         <tr>
                                             <th>ID</th>
                                             <th>Name</th>
@@ -89,14 +85,14 @@
                                                     <td>
                                                         <form action="{{ route('admin.restore', $user->id) }}" method="post">
                                                             @csrf
-                                                            <button type="submit" class="btn btn-warning">Restore</button>
+                                                            <button type="submit" class="btn btn-warning btn-sm">Restore</button>
                                                         </form>
                                                     </td>
                                                     <td>
                                                         <form action="{{ route('admin.forceDelete', $user->id) }}" method="post">
                                                             @csrf
                                                             @method('DELETE')
-                                                            <button type="submit" class="btn btn-danger">Force Delete</button>
+                                                            <button type="submit" class="btn btn-danger btn-sm">Force Delete</button>
                                                         </form>
                                                     </td>
                                                 </tr>

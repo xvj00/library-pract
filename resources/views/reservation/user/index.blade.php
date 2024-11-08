@@ -36,6 +36,8 @@
                                         </form>
                                     @elseif($reservation->status === 'confirmed')
                                         <button class="btn btn-secondary" disabled>Подтверждено</button>
+                                    @elseif($reservation->status === 'given')
+                                        <button class="btn btn-secondary" disabled>Выдано<button>
                                     @else
                                         <button class="btn btn-secondary" disabled>Отменено</button>
                                     @endif

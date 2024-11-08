@@ -22,9 +22,23 @@
     <title>Books</title>
 </head>
 <body>
-<h1>Владик ещекере</h1>
-<h1>Navigation</h1>
-<a href="{{ route('dashboard') }}" class="btn btn-primary">Профиль</a>
+<div class="container my-5 py-4 bg-light rounded shadow-sm text-center">
+    <h1 class="display-4 mb-4">Библиотека</h1>
+
+    <div class="d-flex justify-content-center gap-3">
+        <a href="{{ route('dashboard') }}" class="btn btn-outline-primary btn-lg px-5">Профиль</a>
+
+        @if(auth()->user()->role === 'admin')
+            <a href="{{ route('admin.index') }}" class="btn btn-outline-danger btn-lg px-5">Админ панель</a>
+        @endif
+
+        @if(auth()->user()->role === 'librarian')
+            <a href="{{ route('reservations.index') }}" class="btn btn-outline-success btn-lg px-5">Библиотечная панель</a>
+        @endif
+    </div>
+</div>
+
+
 
 @yield('content')
 
@@ -32,7 +46,7 @@
 </body>
 </html>
 <style>
-    .my-nav svg{
+    .my-nav svg {
         width: 50px;
         height: 50px;
     }

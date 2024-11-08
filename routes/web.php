@@ -37,6 +37,7 @@ Route::middleware('auth')->group(function () {
         Route::get('reservations', [LibrarianController::class, 'index'])->name('reservations.index');
         Route::post('reservations/{book}/cancel', [LibrarianController::class, 'cancel'])->name('reservations.cancel');
         Route::post('reservations/{book}/confirm', [LibrarianController::class, 'confirm'])->name('reservations.confirm');
+        Route::post('reservations/{book}/given', [LibrarianController::class, 'given'])->name('reservations.given');
 
         Route::resource('author', AuthorController::class);
         Route::resource('genre', GenresController::class);
