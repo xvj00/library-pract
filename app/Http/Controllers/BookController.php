@@ -33,13 +33,13 @@ class BookController extends Controller
         $bookQuery = Book::query();
 
         if($request->filled('title')){
-            $bookQuery->where('title', 'like', '%'.$request->title.'%');
+            $bookQuery->where('title', 'ilike', '%'.$request->title.'%');
         }
 
         if ($request->filled('author')) {
             $bookQuery->whereHas('authors', function ($query) use ($request) {
-                $query->where('name', 'like', '%' . $request->author . '%')
-                ->orWhere('surname', 'like', '%' . $request->author . '%');;
+                $query->where('name', 'ilike', '%' . $request->author . '%')
+                ->orWhere('surname', 'ilike', '%' . $request->author . '%');;
             });
         }
 
@@ -58,7 +58,7 @@ class BookController extends Controller
         }
 
         // Выполняем запрос с пагинацией
-        $books = $bookQuery->paginate(5);
+        $books = $bookQuery->paginate(6);
 
         // Передаем данные в представление
         return view('books.index', compact('books', 'genres', 'authors', 'editions', 'reservations'));

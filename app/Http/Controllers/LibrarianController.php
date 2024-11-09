@@ -18,12 +18,12 @@ class LibrarianController extends Controller
             $searchTerm = '%' . $request->search . '%';
 
             $reservations->where(function($query) use ($searchTerm) {
-                $query->orWhere('status', 'like', $searchTerm)
+                $query->orWhere('status', 'ilike', $searchTerm)
                     ->orWhereHas('book', function ($query) use ($searchTerm) {
-                    $query->where('title', 'like', $searchTerm);
+                    $query->where('title', 'ilike', $searchTerm);
                     })
                     ->orWhereHas('user', function ($query) use ($searchTerm) {
-                        $query->where('name', 'like', $searchTerm);
+                        $query->where('name', 'ilike', $searchTerm);
                     });
             });
         }

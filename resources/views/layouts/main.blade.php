@@ -26,6 +26,7 @@
     <h1 class="display-4 mb-4">Библиотека</h1>
 
     <div class="d-flex justify-content-center gap-3">
+        <a href="{{ route('book.index') }}" class="btn btn-outline-primary btn-lg px-5">Главная</a>
         <a href="{{ route('dashboard') }}" class="btn btn-outline-primary btn-lg px-5">Профиль</a>
 
         @if(auth()->user()->role === 'admin')
@@ -45,9 +46,4 @@
 
 </body>
 </html>
-<style>
-    .my-nav svg {
-        width: 50px;
-        height: 50px;
-    }
-</style>
+

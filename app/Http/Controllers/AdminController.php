@@ -17,9 +17,9 @@ class AdminController extends Controller
             $searchTerm = '%' . $request->search . '%';
 
             $users->where(function($query) use ($searchTerm) {
-                $query->where('name', 'like', $searchTerm)
-                    ->orWhere('email', 'like', $searchTerm)
-                    ->orWhere('role', 'like', $searchTerm);
+                $query->where('name', 'ilike', $searchTerm)
+                    ->orWhere('email', 'ilike', $searchTerm)
+                    ->orWhere('role', 'ilike', $searchTerm);
             });
         }
 
