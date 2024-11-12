@@ -10,9 +10,7 @@ use App\Http\Controllers\ReservationController;
 use Illuminate\Support\Facades\Route;
 use \App\Http\Controllers\LibrarianController;
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', [BookController::class, 'index'])->name('book.index');
 
 
 //Route::get('/admin', [AdminController::class, 'index'])->name('admin.index');
@@ -28,7 +26,8 @@ Route::get('/dashboard', function () {
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
-    Route::get('/book', [BookController::class, 'index'])->name('book.index');
+    Route::get('/catalog', [BookController::class, 'showCatalog'])->name('book.catalog');
+//    Route::get('/book', [BookController::class, 'index'])->name('book.index');
     Route::post('reservations', [ReservationController::class, 'store'])->name('reservations.store');
     Route::get('user/reservations', [ReservationController::class, 'userReservations'])->name('reservation.user.index');
     Route::post('user/reservations/{book}/cancel', [ReservationController::class, 'cancel'])->name('reservation.user.cancel');
@@ -67,6 +66,12 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
+//Route::get('/log_in', function () {
+//    return view('pages/autotification/log_in');
+//});
+//Route::get('/sign_in', function () {
+//    return view('pages/autotification/sign_in');
+//});
 
 require __DIR__ . '/auth.php';
 

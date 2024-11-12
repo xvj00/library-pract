@@ -14,15 +14,44 @@ use App\Models\Book;
 use App\Models\Edition;
 use App\Models\Genre;
 use App\Models\Reservation;
-use http\Env\Request;
-use Illuminate\Pipeline\Pipeline;
+use \Illuminate\Http\Request;
 use Spatie\MediaLibrary\MediaCollections\Exceptions\FileDoesNotExist;
 use Spatie\MediaLibrary\MediaCollections\Exceptions\FileIsTooBig;
 
 
 class BookController extends Controller
 {
-    public function index(\Illuminate\Http\Request $request)
+
+    public function showCatalog(Request $request)
+    {
+        $genres = Genre::all();
+        $authors = Author::all();
+        $editions = Edition::all();
+        $books = Book::query();
+        if ($request->has('search') && $request->search != '') {
+            $searchTerm = '%' . $request->search . '%';
+
+            $books->where(function($query) use ($searchTerm) {
+                $query->orWhere('title', 'ilike', $searchTerm)
+                    ->orWhereHas('authors', function ($query) use ($searchTerm) {
+                        $query->where('name', 'ilike', $searchTerm)->orWhere('surname', 'ilike', $searchTerm);
+                    })
+                    ->orWhereHas('edition', function ($query) use ($searchTerm) {
+                        $query->where('title', 'ilike', $searchTerm);
+                    })
+                    ->orWhereHas('genres', function ($query) use ($searchTerm) {
+                        $query->where('title', 'ilike', $searchTerm);
+                    });
+            });
+        }
+
+        $books = $books->get();
+
+
+        return view('pages.catalog', compact(['genres', 'books', 'authors', 'editions']));
+    }
+
+    public function index(Request $request)
     {
         $genres = Genre::all();
         $authors = Author::all();
@@ -31,37 +60,37 @@ class BookController extends Controller
 
         // Начинаем с базового запроса к модели Book
         $bookQuery = Book::query();
-
-        if($request->filled('title')){
-            $bookQuery->where('title', 'ilike', '%'.$request->title.'%');
-        }
-
-        if ($request->filled('author')) {
-            $bookQuery->whereHas('authors', function ($query) use ($request) {
-                $query->where('name', 'ilike', '%' . $request->author . '%')
-                ->orWhere('surname', 'ilike', '%' . $request->author . '%');;
-            });
-        }
-
-        if ($request->filled('genre')) {
-            $bookQuery->whereHas('genres', function ($query) use ($request) {
-                $query->where('genre_id',$request->genre);
-            });
-        }
-
-        if ($request->filled('edition')) {
-            $bookQuery->where('edition_id', $request->edition);
-        }
-
-        if($request->filled('status')){
-            $bookQuery->where('status', $request->status);
-        }
+//
+//        if ($request->filled('title')) {
+//            $bookQuery->where('title', 'ilike', '%' . $request->title . '%');
+//        }
+//
+//        if ($request->filled('author')) {
+//            $bookQuery->whereHas('authors', function ($query) use ($request) {
+//                $query->where('name', 'ilike', '%' . $request->author . '%')
+//                    ->orWhere('surname', 'ilike', '%' . $request->author . '%');;
+//            });
+//        }
+//
+//        if ($request->filled('genre')) {
+//            $bookQuery->whereHas('genres', function ($query) use ($request) {
+//                $query->where('genre_id', $request->genre);
+//            });
+//        }
+//
+//        if ($request->filled('edition')) {
+//            $bookQuery->where('edition_id', $request->edition);
+//        }
+//
+//        if ($request->filled('status')) {
+//            $bookQuery->where('status', $request->status);
+//        }
 
         // Выполняем запрос с пагинацией
-        $books = $bookQuery->paginate(6);
+        $books = $bookQuery->take(4)->get();
 
         // Передаем данные в представление
-        return view('books.index', compact('books', 'genres', 'authors', 'editions', 'reservations'));
+        return view('pages.index', compact('books', 'genres', 'authors', 'editions', 'reservations'));
 
     }
 
