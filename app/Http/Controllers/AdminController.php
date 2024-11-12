@@ -25,7 +25,7 @@ class AdminController extends Controller
 
         $users = $users->get();
 
-        return view('admin.index', compact('users'));
+        return view('pages.admin.user_control', compact('users'));
 
     }
 
