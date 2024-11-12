@@ -22,7 +22,7 @@ Route::get('/', [BookController::class, 'index'])->name('book.index');
 //Route::resource('book', \App\Http\Controllers\BookController::class);
 
 Route::get('/dashboard', function () {
-    return view('dashboard');
+    return view('pages.user.user_dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {

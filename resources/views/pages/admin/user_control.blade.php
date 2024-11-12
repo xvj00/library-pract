@@ -135,7 +135,9 @@
             </table>
         </div>
     </section>
-
+    <div class="mt-4">
+        {{ $users->links('pagination::tailwind') }}
+    </div>
     <!-- Deleted Users Table -->
     <section>
         <h2 class="text-xl font-bold mb-4 text-red-700">Удаленные пользователи</h2>
@@ -174,8 +176,10 @@
                             </td>
                         </tr>
                     @endif
+
                 @endforeach
                 </tbody>
+
             </table>
         </div>
     </section>

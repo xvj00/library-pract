@@ -23,7 +23,7 @@ class AdminController extends Controller
             });
         }
 
-        $users = $users->get();
+        $users = $users->paginate(10);
 
         return view('pages.admin.user_control', compact('users'));
 
