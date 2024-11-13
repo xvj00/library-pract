@@ -23,7 +23,7 @@ class GenresController extends Controller
 
         $data = $request->validated();
         $author = Genre::create($data);
-        return redirect()->route('book.index');
+        return redirect()->route('book.catalog');
 
     }
 }

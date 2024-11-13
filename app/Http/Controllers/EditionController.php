@@ -23,7 +23,7 @@ class EditionController extends Controller
 
         $data = $request->validated();
         $author = Edition::create($data);
-        return redirect()->route('book.index');
+        return redirect()->route('book.catalog');
 
     }
 }

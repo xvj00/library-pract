@@ -36,7 +36,7 @@ class ReservationController extends Controller
             ]);
 
             // Перенаправление на список книг
-            return redirect()->route('book.catalog');
+            return redirect()->back();
         }
     }
 

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,11 +9,15 @@
 <body class="bg-gray-100">
 <header class="w-full bg-green-500 text-white py-4">
     <div class="container mx-auto flex justify-between items-center px-6">
-        <h1 class="text-2xl font-bold">Личный кабинет</h1>
+        <h1 class="text-2xl font-bold">Профиль</h1>
         <nav class="space-x-4">
             <a href="/" class="hover:underline">Главная</a>
-            <a href="{{ route('profile.edit') }}" class="hover:underline">Настройки</a>
-            <a href="{{ route('logout') }}" class="hover:underline">Выход</a>
+
+            <!-- Форма для выхода из системы -->
+            <form action="{{ route('logout') }}" method="POST" class="inline-block">
+                @csrf
+                <button type="submit" class="text-white hover:underline">Выход</button>
+            </form>
         </nav>
     </div>
 </header>
@@ -24,10 +28,7 @@
         <aside class="bg-white rounded-lg shadow-md p-6">
             <h2 class="text-xl font-semibold mb-4">Меню</h2>
             <ul class="space-y-3 text-gray-700">
-                <li><a href="{{ route('profile.edit') }}" class="hover:text-green-500">Профиль</a></li>
-{{--                <li><a href="{{ route('user.orders') }}" class="hover:text-green-500">Мои заказы</a></li>--}}
-{{--                <li><a href="{{ route('user.favorites') }}" class="hover:text-green-500">Избранное</a></li>--}}
-{{--                <li><a href="{{ route('user.settings') }}" class="hover:text-green-500">Настройки</a></li>--}}
+                <li><a href="{{ route('reservation.user.index') }}" class="hover:text-green-500">Мои заказы</a></li>
             </ul>
         </aside>
 
@@ -41,7 +42,7 @@
                 <p class="text-gray-800"><strong>Дата регистрации:</strong> {{ Auth::user()->created_at->format('d.m.Y') }}</p>
             </div>
 
-
+            <!-- Включение дополнительных форм -->
             @include('profile.partials.update-password-form')
             @include('profile.partials.update-profile-information-form')
             @include('profile.partials.delete-user-form')

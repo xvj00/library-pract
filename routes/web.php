@@ -21,16 +21,16 @@ Route::get('/', [BookController::class, 'index'])->name('book.index');
 
 //Route::resource('book', \App\Http\Controllers\BookController::class);
 
-Route::get('/dashboard', function () {
+Route::get('/profile', function () {
     return view('pages.user.user_dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+})->middleware(['auth', 'verified'])->name('profile.edit');
 
 Route::middleware('auth')->group(function () {
     Route::get('/catalog', [BookController::class, 'showCatalog'])->name('book.catalog');
 //    Route::get('/book', [BookController::class, 'index'])->name('book.index');
     Route::post('reservations', [ReservationController::class, 'store'])->name('reservations.store');
-    Route::get('user/reservations', [ReservationController::class, 'userReservations'])->name('reservation.user.index');
-    Route::post('user/reservations/{book}/cancel', [ReservationController::class, 'cancel'])->name('reservation.user.cancel');
+    Route::get('profile/reservations', [ReservationController::class, 'userReservations'])->name('reservation.user.index');
+    Route::post('profile/reservations/{book}/cancel', [ReservationController::class, 'cancel'])->name('reservation.user.cancel');
     Route::middleware('role:librarian')->group(function () {
 
         Route::get('reservations', [LibrarianController::class, 'index'])->name('reservations.index');

@@ -45,7 +45,7 @@ class BookController extends Controller
             });
         }
 
-        $books = $books->get();
+        $books = $books->paginate(10);
 
 
         return view('pages.catalog', compact(['genres', 'books', 'authors', 'editions']));
@@ -94,10 +94,7 @@ class BookController extends Controller
 
     }
 
-    public function show(Book $book)
-    {
-        return view('books.show', compact('book'));
-    }
+
 
     public function create()
     {
@@ -130,7 +127,7 @@ class BookController extends Controller
             $book->addMediaFromRequest('image')
                 ->toMediaCollection('book_images');
         }
-        return redirect()->route('book.index');
+        return redirect()->route('book.catalog');
     }
 
     public function edit(Book $book)
@@ -165,13 +162,13 @@ class BookController extends Controller
         $book->edition_id = $request->edition_id; // Присваиваем новое издание
         $book->save();
 
-        return redirect()->route('book.index');
+        return redirect()->route('book.catalog');
     }
 
     public function destroy(Book $book)
     {
         $book->delete();
-        return redirect()->route('book.index');
+        return redirect()->back();
     }
 
 }

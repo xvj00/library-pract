@@ -23,7 +23,7 @@ class AuthorController extends Controller
 
         $data = $request->validated();
         $author = Author::create($data);
-        return redirect()->route('book.index');
+        return redirect()->route('book.catalog');
 
     }
 }

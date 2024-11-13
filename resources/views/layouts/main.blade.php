@@ -27,7 +27,7 @@
 
     <div class="d-flex justify-content-center gap-3">
         <a href="{{ route('book.index') }}" class="btn btn-outline-primary btn-lg px-5">Главная</a>
-        <a href="{{ route('dashboard') }}" class="btn btn-outline-primary btn-lg px-5">Профиль</a>
+        <a href="{{ route('profile.edit') }}" class="btn btn-outline-primary btn-lg px-5">Профиль</a>
 
         @if(auth()->user()->role === 'admin')
             <a href="{{ route('admin.index') }}" class="btn btn-outline-danger btn-lg px-5">Админ панель</a>

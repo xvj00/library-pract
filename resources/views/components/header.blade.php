@@ -17,11 +17,22 @@
 
                 <!-- Основные ссылки -->
                 <nav class="flex justify-center space-x-6">
-                    <a href="/catalog" class="text20_10 text-gray-700 hover:text-green-600 transition">Главная</a>
+                    <a href="/" class="text20_10 text-gray-700 hover:text-green-600 transition">Главная</a>
                     <a href="/catalog" class="text20_10 text-gray-700 hover:text-green-600 transition">Каталог</a>
 
                     <a href="#new-arrivals" class="text20_10 text-gray-700 hover:text-green-600 transition">Новинки</a>
                     <a href="#reviews" class="text20_10 text-gray-700 hover:text-green-600 transition">Отзывы</a>
+                    @auth()
+                        @if(auth()->user()->role ==='admin')
+                    <a href="{{route('admin.index')}}" class="text20_10 text-gray-700 hover:text-green-600 transition">Админ Панель</a>
+                        @endif
+                    @endauth
+
+                    @auth()
+                        @if(auth()->user()->role ==='librarian')
+                            <a href="{{route('reservations.index')}}" class="text20_10 text-gray-700 hover:text-green-600 transition">Библотекарь</a>
+                        @endif
+                    @endauth
                 </nav>
 
                 <!-- Корзина и поиск -->

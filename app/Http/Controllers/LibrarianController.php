@@ -31,7 +31,7 @@ class LibrarianController extends Controller
         $reservations = $reservations->get();
 
 
-        return view('reservation.index', compact('reservations'));
+        return view('pages.library-man.library_control', compact('reservations'));
 
     }
 
