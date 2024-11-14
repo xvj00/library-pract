@@ -23,17 +23,14 @@ class AdminController extends Controller
             });
         }
 
-        $users = $users->paginate(10);
+        $users = $users->orderBy('id', 'asc')->paginate(10);
 
         return view('pages.admin.user_control', compact('users'));
 
     }
 
 
-    public function create()
-    {
-        return view('admin.create');
-    }
+
 
     /**
      * @throws FileIsTooBig
@@ -51,7 +48,7 @@ class AdminController extends Controller
 
     public function edit(User $admin)
     {
-        return view('admin.edit', compact('admin'));
+        return view('components.Admin.edit', compact('admin'));
     }
 
     public function update(UserUpdateRequest $request, User $admin)
