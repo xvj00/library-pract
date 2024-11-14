@@ -3,10 +3,7 @@
 namespace App\Http\Controllers;
 
 
-use App\Http\Filters\Book\AuthorFilter;
-use App\Http\Filters\Book\EditionFilter;
-use App\Http\Filters\Book\GenreFilter;
-use App\Http\Requests\BookFilterRequest;
+
 use App\Http\Requests\BookStoreRequest;
 use App\Http\Requests\BookUpdateRequest;
 use App\Models\Author;

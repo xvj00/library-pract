@@ -11,6 +11,8 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules;
 use Illuminate\View\View;
+use Spatie\MediaLibrary\MediaCollections\Exceptions\FileDoesNotExist;
+use Spatie\MediaLibrary\MediaCollections\Exceptions\FileIsTooBig;
 
 class RegisteredUserController extends Controller
 {
@@ -33,6 +35,7 @@ class RegisteredUserController extends Controller
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:'.User::class],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
+            'image' => ['nullable', 'image', 'max:2048'],
         ]);
 
         $user = User::create([
@@ -41,9 +44,19 @@ class RegisteredUserController extends Controller
             'password' => Hash::make($request->password),
         ]);
 
+
+        if ($request->hasFile('image')) {
+            $user->addMediaFromRequest('image')
+                ->toMediaCollection('user_images');
+        }
+
+
+
         event(new Registered($user));
 
         Auth::login($user);
+
+
 
         return redirect(route('book.index', absolute: false));
     }

@@ -1,8 +1,11 @@
 <div class="flex w-full items-center p-4 bg-white shadow-lg rounded-lg">
     <!-- Изображение профиля -->
-    <img src="{{ asset('img/man.svg') }}" class="w-16 h-16 rounded-full border-2 border-gray-300 " alt="Профиль">
+    @auth()
+    <img src="{{ auth()->user()->getFirstMediaUrl('user_images') }}" class=" object-cover w-16 h-16 rounded-full border-2 border-gray-300 " alt="Профиль">
+    @else
+        <img src="{{asset('img/man.svg') }}" class="w-16 h-16 rounded-full border-2 border-gray-300 " alt="Профиль">
 
-    <!-- Информация о профиле -->
+    @endauth
     <div class="flex-1 ml-4 flex flex-col items-center text-gray-800">
         <p class="text-lg font-semibold tracking-wider text-gray-700">Профиль</p>
 

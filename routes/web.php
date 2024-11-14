@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\Route;
 use \App\Http\Controllers\LibrarianController;
 
 Route::get('/', [BookController::class, 'index'])->name('book.index');
-
+Route::get('/catalog', [BookController::class, 'showCatalog'])->name('book.catalog');
 
 //Route::get('/admin', [AdminController::class, 'index'])->name('admin.index');
 //Route::delete('/admin/{user}', [AdminController::class, 'destroy'])->name('admin.destroy');
@@ -26,7 +26,7 @@ Route::get('/profile', function () {
 })->middleware(['auth', 'verified'])->name('profile.edit');
 
 Route::middleware('auth')->group(function () {
-    Route::get('/catalog', [BookController::class, 'showCatalog'])->name('book.catalog');
+
 //    Route::get('/book', [BookController::class, 'index'])->name('book.index');
     Route::post('reservations', [ReservationController::class, 'store'])->name('reservations.store');
     Route::get('profile/reservations', [ReservationController::class, 'userReservations'])->name('reservation.user.index');
@@ -62,7 +62,9 @@ Route::middleware('auth')->group(function () {
     Route::get('/book/{book}', [BookController::class, 'show'])->name('book.show');
 
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::patch('/profile/image', [ProfileController::class, 'imageUpdate'])->name('profile.imageUpdate');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 

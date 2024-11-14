@@ -17,6 +17,8 @@
 <!-- Header Section -->
 @include('components/header')
 
+
+
 <!-- Main Image Section -->
 @include('components/main_img')
 

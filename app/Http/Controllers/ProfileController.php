@@ -34,8 +34,30 @@ class ProfileController extends Controller
 
         $request->user()->save();
 
-        return Redirect::route('profile.edit')->with('user','status', 'profile-updated');
+        return Redirect::route('profile.edit')->with('status', 'profile-updated');
     }
+
+    public function imageUpdate(Request $request)
+    {
+        $request->validate([
+            'image' => ['required', 'image', 'max:10000'],
+        ]);
+
+        if ($request->hasFile('image')) {
+            // Удаляем текущее изображение, если оно существует
+            if ($request->user()->getFirstMedia('user_images')) {
+                $request->user()->clearMediaCollection('user_images');
+            }
+
+            // Добавляем новое изображение
+            $request->user()->addMediaFromRequest('image')->toMediaCollection('user_images');
+        }
+
+        $request->user()->save();
+
+        return Redirect::route('profile.edit')->with('status', 'profile-updated');
+    }
+
 
     /**
      * Delete the user's account.
