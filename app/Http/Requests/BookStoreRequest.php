@@ -23,9 +23,17 @@ class BookStoreRequest extends FormRequest
     {
         return [
             'title'       => 'required|string',
-            'description' => 'nullable|string',
+            'description' => 'required|string',
             'image'       => 'nullable|image|max:10024',
             'author_id'  => 'required|integer',
+        ];
+    }
+    public function messages()
+    {
+        return [
+            'title.required' => 'Название книги обязательно для заполнения.',
+            'description.required' => 'Описание книги обязательно для заполнения.',
+            'author_id.required' => 'Выберите автора.',
         ];
     }
 }

@@ -68,12 +68,6 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-//Route::get('/log_in', function () {
-//    return view('pages/autotification/log_in');
-//});
-//Route::get('/sign_in', function () {
-//    return view('pages/autotification/sign_in');
-//});
 
 require __DIR__ . '/auth.php';
 

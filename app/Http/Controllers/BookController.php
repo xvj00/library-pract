@@ -112,13 +112,10 @@ class BookController extends Controller
         $book = Book::create($data);
 
         $book->authors()->attach($request->author_id);
-
         $book->genres()->attach($request->genre_id);
-
 
         $book->edition_id = $request->edition_id;
         $book->save();
-
 
         if ($request->hasFile('image')) {
             $book->addMediaFromRequest('image')

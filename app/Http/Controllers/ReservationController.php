@@ -17,7 +17,6 @@ class ReservationController extends Controller
 
     public function store(ReservationCreateRequest $request)
     {
-        // Проверка, забронирована ли книга
         $reservation = Reservation::where('book_id', $request->book_id)
             ->where('status', ReservationsStatus::BOOKED)
             ->where('booking_date', '>=', Carbon::now())

@@ -16,9 +16,9 @@ class BookUpdateRequest extends FormRequest
             'description' => 'nullable|string',
             'edition_id' => 'nullable|exists:editions,id', //
             'author_id' => 'nullable|integer|exists:authors,id',
-            'genre_id' => 'nullable|array', // Допустим, что жанров можно передавать в виде массива
-            'genre_id.*' => 'exists:genres,id', // Проверка каждого жанра в массиве
-            'image' => 'nullable|image|max:10024', // Допустим, что вы можете передавать изображение
+            'genre_id' => 'nullable|array',
+            'genre_id.*' => 'exists:genres,id',
+            'image' => 'nullable|image|max:10024',
         ];
     }
 
