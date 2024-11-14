@@ -1,4 +1,4 @@
-<div class="flex w-full items-center p-4 bg-white shadow-lg rounded-lg">
+<div class="flex w-full items-center p-4 bg-white rounded-lg">
     <!-- Изображение профиля -->
     @auth()
     <img src="{{ auth()->user()->getFirstMediaUrl('user_images') }}" class=" object-cover w-16 h-16 rounded-full border-2 border-gray-300 " alt="Профиль">

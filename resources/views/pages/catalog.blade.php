@@ -72,12 +72,15 @@
         <!-- Цикл по книгам -->
         <div class="grid grid-cols-1 md:grid-cols-2 gap-8 w-full my-[5%]">
             @foreach($books as $book)
-                <div class="flex bg-white rounded-lg shadow-md overflow-hidden border border-gray-200">
-                    <div class="w-full md:w-1/3 p-4 flex justify-center">
+                <div class="flex flex-col md:flex-row-reverse bg-white rounded-lg shadow-md overflow-hidden border border-gray-200">
+                    <!-- Изображение книги -->
+                    <div class="w-full p-4 flex justify-center md:w-1/3 md:order-1">
                         <img src="{{ $book->getFirstMediaUrl('book_images') }}"
                              class="max-w-[300px] max-h-[400px] w-full h-auto object-cover"
                              alt="Книга">
                     </div>
+
+                    <!-- Информация о книге -->
                     <div class="flex flex-col justify-between p-4 w-full md:w-2/3">
                         <div class="flex flex-col">
                             <h2 class="text-xl font-semibold text-gray-800 mb-2">{{ $book->title }}</h2>
@@ -100,8 +103,7 @@
                             </div>
                         </div>
                         @if((!$book->isReserved()) && (!$book->isConfirmed()) && (!$book->isGiven()))
-                            <form action="{{ route('reservations.store', ['book_id' => $book->id]) }}" method="post"
-                                  class="d-inline">
+                            <form action="{{ route('reservations.store', ['book_id' => $book->id]) }}" method="post" class="d-inline">
                                 @csrf
                                 <button type="submit"
                                         class="w-full py-2 bg-green-500 text-white rounded-md shadow-md hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-400 transition">
@@ -120,9 +122,7 @@
                             </button>
                         @endif
 
-
                         @auth()
-
                             @if( auth()->user()->role === 'librarian' )
                                 <!-- Кнопки для редактирования и удаления книги -->
                                 <div class="mt-4 flex gap-4">
@@ -146,8 +146,8 @@
                     </div>
                 </div>
             @endforeach
+        </div>
 
-        </div> <!-- Закрываем основной контейнер с книгами -->
         <div class="mt-6">
             <nav aria-label="Page navigation">
                 <ul class="flex justify-center space-x-2">
