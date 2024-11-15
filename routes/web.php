@@ -53,6 +53,7 @@ Route::middleware('auth')->group(function () {
 
     Route::middleware('role:admin')->group(function () {
         Route::resource('admin', AdminController::class);
+
         Route::post('admin/{id}/restore', [AdminController::class, 'restore'])->name('admin.restore');
         Route::delete('admin/{id}/forceDelete', [AdminController::class, 'forceDelete'])->name('admin.forceDelete');
 

@@ -27,33 +27,7 @@
     <!-- Title -->
     <h1 class="text-3xl font-semibold text-center mb-8">Управление пользователями</h1>
 
-    <h2 class="text-xl font-bold mb-4 text-green-700">Поиск пользователя</h2>
-    <div class="flex items-center space-x-4 mb-4">
-        <!-- Search Form -->
-        <form action="{{ route('admin.index') }}" method="get" class="flex items-center w-full">
-            <input
-                type="text"
-                name="search"
-                class="w-full px-4 py-2 border border-gray-300 rounded-l-lg focus:outline-none focus:border-green-500"
-                placeholder="Введите имя или email"
-                value="{{ request()->get('search') }}">
-            <button
-                type="submit"
-                class="bg-green-500 text-white px-4 py-2 rounded-r-lg hover:bg-green-600 transition">
-                Поиск
-            </button>
-        </form>
-        <!-- Reset Button -->
-        @if(request()->has('search'))
-        <form action="{{ route('admin.index') }}" method="get">
-            <button
-                type="submit"
-                class="bg-gray-300 text-gray-700 px-4 py-2 rounded-lg hover:bg-gray-400 transition">
-                Сбросить
-            </button>
-        </form>
-        @endif
-    </div>
+
 
 
 
@@ -96,6 +70,34 @@
         </div>
     </section>
 
+    <h2 class="text-xl font-bold mb-4 text-green-700">Поиск пользователя</h2>
+    <div class="flex items-center space-x-4 mb-4">
+        <!-- Search Form -->
+        <form action="{{ route('admin.index') }}" method="get" class="flex items-center w-full">
+            <input
+                type="text"
+                name="search"
+                class="w-full px-4 py-2 border border-gray-300 rounded-l-lg focus:outline-none focus:border-green-500"
+                placeholder="Введите имя или email"
+                value="{{ request()->get('search') }}">
+            <button
+                type="submit"
+                class="bg-green-500 text-white px-4 py-2 rounded-r-lg hover:bg-green-600 transition">
+                Поиск
+            </button>
+        </form>
+        <!-- Reset Button -->
+        @if(request()->has('search'))
+            <form action="{{ route('admin.index') }}" method="get">
+                <button
+                    type="submit"
+                    class="bg-gray-300 text-gray-700 px-4 py-2 rounded-lg hover:bg-gray-400 transition">
+                    Сбросить
+                </button>
+            </form>
+        @endif
+    </div>
+
     <!-- Active Users Table -->
     <section class="mb-12">
         <h2 class="text-xl font-bold mb-4 text-green-700">Список пользователей</h2>
@@ -127,6 +129,8 @@
                                     </form>
                                     <a href="{{ route('admin.edit', $user->id) }}" class="bg-green-500 text-white px-2 py-1 rounded hover:bg-green-600">Обновить</a>
                                 </div>
+
+
                             </td>
                         </tr>
                     @endif

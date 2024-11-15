@@ -17,7 +17,7 @@
 
 <main class="main mx-[10%] py-10">
     <div class="container mx-auto px-4">
-        <h1 class="text-4xl font-bold mb-8">Каталог</h1>
+        <h1  class=" text-4xl font-bold mb-8">Каталог</h1>
 
         <!-- Кнопки для создания элементов -->
         @auth()
@@ -45,7 +45,7 @@
         @endauth
 
         <!-- Форма поиска -->
-        <form action="{{ route('book.catalog') }}" method="GET"
+        <form  id="catalog" action="{{ route('book.catalog') }}" method="GET"
               class="search-form mb-8 flex flex-col md:flex-row items-center gap-4 p-6 rounded-lg shadow-md bg-white border border-gray-200">
             <input
                 type="text"
@@ -70,7 +70,7 @@
         </form>
 
         <!-- Цикл по книгам -->
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 w-full my-[5%]">
+        <div  class="grid grid-cols-1 md:grid-cols-2 gap-8 w-full my-[5%]">
             @foreach($books as $book)
                 <div class="flex flex-col md:flex-row-reverse bg-white rounded-lg shadow-md overflow-hidden border border-gray-200">
                     <!-- Изображение книги -->

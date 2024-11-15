@@ -26,9 +26,9 @@
                 <!-- Основные ссылки -->
                 <nav id="nav-menu" class="hidden md:flex flex-col md:flex-row justify-center space-x-0 md:space-x-6 col-span-3 md:col-span-2 mt-4 md:mt-0">
                     <a href="/" class="text20_10 text-gray-700 hover:text-green-600 transition">Главная</a>
-                    <a href="/catalog" class="text20_10 text-gray-700 hover:text-green-600 transition">Каталог</a>
-                    <a href="#new-arrivals" class="text20_10 text-gray-700 hover:text-green-600 transition">Новинки</a>
-                    <a href="#reviews" class="text20_10 text-gray-700 hover:text-green-600 transition">Отзывы</a>
+                    <a href="/catalog#catalog" class="text20_10 text-gray-700 hover:text-green-600 transition">Каталог</a>
+                    <a href="/#new-arrivals" class="text20_10 text-gray-700 hover:text-green-600 transition">Новинки</a>
+                    <a href="/#reviews" class="text20_10 text-gray-700 hover:text-green-600 transition">Отзывы</a>
                     @auth()
                         @if(auth()->user()->role === 'admin')
                             <a href="{{route('admin.index')}}" class="text20_10 text-gray-700 hover:text-green-600 transition">Админ Панель</a>

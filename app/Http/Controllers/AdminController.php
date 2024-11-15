@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\UserStoreRequest;
 use App\Http\Requests\UserUpdateRequest;
+use App\Http\Requests\UserUpdateRoleRequest;
 use App\Models\User;
 use Illuminate\Http\Request;
 
@@ -16,7 +17,7 @@ class AdminController extends Controller
         if ($request->has('search') && $request->search != '') {
             $searchTerm = '%' . $request->search . '%';
 
-            $users->where(function($query) use ($searchTerm) {
+            $users->where(function ($query) use ($searchTerm) {
                 $query->where('name', 'ilike', $searchTerm)
                     ->orWhere('email', 'ilike', $searchTerm)
                     ->orWhere('role', 'ilike', $searchTerm);
@@ -28,8 +29,6 @@ class AdminController extends Controller
         return view('pages.admin.user_control', compact('users'));
 
     }
-
-
 
 
     /**
@@ -54,9 +53,21 @@ class AdminController extends Controller
     public function update(UserUpdateRequest $request, User $admin)
     {
         $data = $request->validated();
+
+        if ((isset($data['role']) && $data['role'] === 'librarian' || isset($data['role']) && $data['role'] === 'user') && $admin->role === 'admin') {
+            unset($data['role']);
+        }
+
+        if (!empty($data['password'])) {
+            $data['password'] = bcrypt($data['password']);
+        } else {
+            unset($data['password']);
+        }
+
         $admin->update($data);
         return redirect()->route('admin.index');
     }
+
 
     public function destroy(User $admin)
     {
