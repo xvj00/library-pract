@@ -11,7 +11,7 @@ class AuthorController extends Controller
     public function create()
     {
 
-        return view('author.create');
+        return view('components.author.create');
     }
 
     /**

@@ -98,7 +98,7 @@ class BookController extends Controller
         $genres = Genre::all();
         $authors = Author::all();
         $editions = Edition::all();
-        return view('Books.create', compact('authors', 'genres', 'editions'));
+        return view('components.Books.edit', compact('authors', 'genres', 'editions'));
     }
 
     /**
@@ -129,7 +129,7 @@ class BookController extends Controller
         $genres = Genre::all();
         $authors = Author::all();
         $editions = Edition::all();
-        return view('books.edit', compact('authors', 'genres', 'editions', 'book'));
+        return view('components.Books.edit', compact('authors', 'genres', 'editions', 'book'));
     }
 
     public function update(BookUpdateRequest $request, Book $book)
