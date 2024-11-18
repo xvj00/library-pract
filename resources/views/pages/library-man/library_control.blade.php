@@ -77,9 +77,7 @@
                         <td class="border px-4 py-2">{{ $reservation->user->name }}</td>
                         <td class="border px-4 py-2">{{ $reservation->created_at->format('d.m.Y H:i') }}</td>
                         <td class="border px-4 py-2">{{ \Carbon\Carbon::parse($reservation->booking_date)->format('d.m.Y') }}</td>
-                        <td class="border px-4 py-2">
-                            {{ round(Carbon::now()->diffInDays(Carbon::parse($reservation->booking_date))) }}
-                        </td>
+                        <td class="border px-4 py-2">{{ round(Carbon::now()->diffInDays(Carbon::parse($reservation->booking_date))) }}</td>
                         <td class="border px-4 py-2">
                             @if($reservation->status === ReservationsStatus::BOOKED)
                                 <span class="bg-yellow-300 text-yellow-800 px-3 py-1 rounded-full text-sm font-semibold">Забронировано</span>
@@ -91,17 +89,14 @@
                                 <span class="bg-blue-500 text-white px-3 py-1 rounded-full text-sm font-semibold">Выдано</span>
                             @endif
                         </td>
-
                         <td class="border px-4 py-2">
-                            <div class="flex space-x-2">
-
+                            <div class="flex flex-col space-y-2 sm:flex-row sm:space-y-0 sm:space-x-2">
                                 @if($reservation->status === ReservationsStatus::BOOKED)
                                     <form action="{{ route('reservations.confirm', $reservation->book->id) }}" method="post" class="d-inline">
                                         @csrf
                                         <button type="submit" class="bg-green-500 text-white px-4 py-1 rounded hover:bg-green-600 transition duration-300">Подтвердить</button>
                                     </form>
                                 @endif
-
 
                                 @if($reservation->status === ReservationsStatus::CONFIRMED)
                                     <form action="{{ route('reservations.given', $reservation->book->id) }}" method="post" class="d-inline">
@@ -116,13 +111,12 @@
                                 </form>
                             </div>
                         </td>
-
-
                     </tr>
                 @endforeach
                 </tbody>
             </table>
         </div>
+
     @endif
 </main>
 
