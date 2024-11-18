@@ -24,7 +24,9 @@
 <!-- Main Content -->
 <main class="container mx-auto my-8 p-8 bg-white rounded-lg shadow-md">
     <!-- Title -->
-    @yield('content')
+        @yield('content')
+
+
 </main>
 
 </body>

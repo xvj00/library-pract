@@ -41,6 +41,7 @@ Route::middleware('auth')->group(function () {
         Route::resource('author', AuthorController::class);
         Route::resource('genre', GenresController::class);
         Route::resource('edition', EditionController::class);
+        Route::resource('book', BookController::class);
         Route::get('/book/create', [BookController::class, 'create'])->name('book.create');
         Route::post('/book', [BookController::class, 'store'])->name('book.store');
         Route::get('/book/{book}/edit', [BookController::class, 'edit'])->name('book.edit');
