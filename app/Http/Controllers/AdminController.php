@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Enums\Role;
 use App\Http\Requests\UserStoreRequest;
 use App\Http\Requests\UserUpdateRequest;
 use App\Http\Requests\UserUpdateRoleRequest;
@@ -54,18 +55,20 @@ class AdminController extends Controller
     {
         $data = $request->validated();
 
-        if ((isset($data['role']) && $data['role'] === 'librarian' || isset($data['role']) && $data['role'] === 'user') && $admin->role === 'admin') {
-            unset($data['role']);
+        if ($admin->role === Role::ADMIN->value){
+            return redirect()->back()->withErrors(['message' => 'Вы не можете изменить роль администратора']);
         }
+        else {
 
-        if (!empty($data['password'])) {
-            $data['password'] = bcrypt($data['password']);
-        } else {
-            unset($data['password']);
+            if (!empty($data['password'])) {
+                $data['password'] = bcrypt($data['password']);
+            } else {
+                unset($data['password']);
+            }
+
+            $admin->update($data);
+            return redirect()->route('admin.index');
         }
-
-        $admin->update($data);
-        return redirect()->route('admin.index');
     }
 
 

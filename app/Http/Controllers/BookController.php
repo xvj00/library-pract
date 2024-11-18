@@ -57,31 +57,6 @@ class BookController extends Controller
 
         // Начинаем с базового запроса к модели Book
         $bookQuery = Book::query();
-//
-//        if ($request->filled('title')) {
-//            $bookQuery->where('title', 'ilike', '%' . $request->title . '%');
-//        }
-//
-//        if ($request->filled('author')) {
-//            $bookQuery->whereHas('authors', function ($query) use ($request) {
-//                $query->where('name', 'ilike', '%' . $request->author . '%')
-//                    ->orWhere('surname', 'ilike', '%' . $request->author . '%');;
-//            });
-//        }
-//
-//        if ($request->filled('genre')) {
-//            $bookQuery->whereHas('genres', function ($query) use ($request) {
-//                $query->where('genre_id', $request->genre);
-//            });
-//        }
-//
-//        if ($request->filled('edition')) {
-//            $bookQuery->where('edition_id', $request->edition);
-//        }
-//
-//        if ($request->filled('status')) {
-//            $bookQuery->where('status', $request->status);
-//        }
 
         // Выполняем запрос с пагинацией
         $books = $bookQuery->take(4)->get();
