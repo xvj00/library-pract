@@ -56,7 +56,7 @@ class AdminController extends Controller
         $data = $request->validated();
 
         if ($admin->role === Role::ADMIN->value){
-            return redirect()->back()->withErrors(['message' => 'Вы не можете изменить роль администратора']);
+            return redirect()->route('admin.index')->withErrors(['message' => 'Вы не можете изменить роль администратора']);
         }
         else {
 
