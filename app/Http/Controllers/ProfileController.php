@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\PasswordUpdateRequest;
 use App\Http\Requests\ProfileUpdateRequest;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\View\View;
 
@@ -28,6 +30,7 @@ class ProfileController extends Controller
     {
         $request->user()->fill($request->validated());
 
+
         if ($request->user()->isDirty('email')) {
             $request->user()->email_verified_at = null;
         }
@@ -36,6 +39,19 @@ class ProfileController extends Controller
 
         return Redirect::route('profile.edit')->with('status', 'profile-updated');
     }
+
+    public function passwordUpdate(PasswordUpdateRequest $request)
+    {
+        if (Hash::check($request->current_password, auth()->user()->password)) {
+            if ($request->password != null) {
+                auth()->user()->update([
+                    'password' => bcrypt($request->password)
+                ]);
+                return \redirect()->back()->with('status', 'password-updated');
+            }
+        }
+    }
+
 
     public function imageUpdate(Request $request)
     {

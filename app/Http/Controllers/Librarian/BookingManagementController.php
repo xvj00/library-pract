@@ -1,14 +1,15 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Librarian;
 
 use App\Enums\ReservationsStatus;
+use App\Http\Controllers\Controller;
 use App\Models\Book;
 use App\Models\Reservation;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 
-class LibrarianController extends Controller
+class BookingManagementController extends Controller
 {
     public function index(Request $request)
     {

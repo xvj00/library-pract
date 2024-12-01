@@ -11,7 +11,7 @@ class EditionController extends Controller
     public function create()
     {
 
-        return view('edition.create');
+        return view('components.edition.create');
     }
 
     /**

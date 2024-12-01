@@ -18,7 +18,6 @@ use Spatie\MediaLibrary\MediaCollections\Exceptions\FileIsTooBig;
 
 class BookController extends Controller
 {
-
     public function showCatalog(Request $request)
     {
         $genres = Genre::all();
@@ -44,7 +43,6 @@ class BookController extends Controller
 
         $books = $books->paginate(10);
 
-
         return view('pages.catalog', compact(['genres', 'books', 'authors', 'editions']));
     }
 
@@ -54,16 +52,12 @@ class BookController extends Controller
         $authors = Author::all();
         $editions = Edition::all();
         $reservations = Reservation::all();
-
         // Начинаем с базового запроса к модели Book
         $bookQuery = Book::query();
-
         // Выполняем запрос с пагинацией
         $books = $bookQuery->take(4)->get();
-
         // Передаем данные в представление
         return view('pages.index', compact('books', 'genres', 'authors', 'editions', 'reservations'));
-
     }
 
 
@@ -82,7 +76,6 @@ class BookController extends Controller
      */
     public function store(BookStoreRequest $request)
     {
-
         $data = $request->validated();
         $book = Book::create($data);
 

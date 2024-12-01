@@ -11,7 +11,7 @@ class GenresController extends Controller
     public function create()
     {
 
-        return view('genre.create');
+        return view('components.genre.create');
     }
 
     /**

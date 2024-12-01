@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -16,14 +16,26 @@
 
         <!-- Поле для ввода почты -->
         <label for="email" class="block text-lg text-gray-700">Почта</label>
-        <input name="email" id="email" type="email" placeholder="example@mail.com" class="input_searth w-full h-12 px-4 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent" required>
+        <input name="email" id="email" type="email" placeholder="example@mail.com"
+               class="input_searth w-full h-12 px-4 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent"
+               required value="{{old('email')}}">
 
         <!-- Поле для ввода пароля -->
         <label for="password" class="block text-lg text-gray-700">Пароль</label>
-        <input name="password" id="password" type="password" placeholder="••••••••" class="input_searth w-full h-12 px-4 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent" required>
+        <input name="password" id="password" type="password" placeholder="••••••••"
+               class="input_searth w-full h-12 px-4 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent"
+               required>
+
+
+            <label  class="block text-lg text-gray-700">
+                <input type="checkbox" name="remember" value="0">
+                Запомнить меня
+            </label>
+
 
         <!-- Кнопка входа -->
-        <button type="submit" class="w-full h-12 bg-green-500 text-white rounded-lg font-semibold shadow-lg hover:bg-green-600 transition-colors">
+        <button type="submit"
+                class="w-full h-12 bg-green-500 text-white rounded-lg font-semibold shadow-lg hover:bg-green-600 transition-colors">
             Войти
         </button>
 
@@ -42,7 +54,8 @@
     <!-- Ссылка на регистрацию -->
     <div class="text-center mt-6">
         <p class="text-gray-600">Нет аккаунта?
-            <a href="/sign_in" class="text-green-500 font-semibold hover:text-green-600 transition-colors">Регистрация</a>
+            <a href="/register"
+               class="text-green-500 font-semibold hover:text-green-600 transition-colors">Регистрация</a>
         </p>
     </div>
 </main>

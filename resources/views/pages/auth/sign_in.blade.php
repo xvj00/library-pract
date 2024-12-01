@@ -16,7 +16,7 @@
             @csrf
 
             <div>
-                <label for="name" class="block text-lg text-gray-700">ФИО:</label>
+                <label for="name" class="block text-lg text-gray-700">Имя:</label>
                 <input name="name" id="name" type="text" value="{{ old('name') }}" required
                        class="w-full p-3 mt-1 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500">
                 @error('name')
@@ -68,7 +68,7 @@
         </form>
 
         <div class="mt-4 text-center">
-            <a href="/log_in" class="text-green-500 font-semibold hover:text-green-700">Уже есть аккаунт? Войти</a>
+            <a href="/login" class="text-green-500 font-semibold hover:text-green-700">Уже есть аккаунт? Войти</a>
         </div>
     </div>
 </main>

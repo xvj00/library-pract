@@ -43,8 +43,11 @@
         <div class="flex items-center gap-4 mt-4">
             <button type="submit" class="bg-green-500 text-white px-6 py-2 rounded-md hover:bg-green-600 transition">Сохранить</button>
             @if (session('status') === 'password-updated')
-                <span class="text-sm text-green-600">Пароль успешно обновлен!</span>
+                <p class="text-green-500">Пароль успешно обновлен!</p>
+            @elseif (session('status') === 'password-error')
+                <p class="text-red-500">Ошибка при обновлении пароля.</p>
             @endif
+
         </div>
     </form>
 </section>

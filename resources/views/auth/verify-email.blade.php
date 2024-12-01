@@ -1,31 +1,38 @@
-<x-guest-layout>
-    <div class="mb-4 text-sm text-gray-600 dark:text-gray-400">
-        {{ __('Thanks for signing up! Before getting started, could you verify your email address by clicking on the link we just emailed to you? If you didn\'t receive the email, we will gladly send you another.') }}
-    </div>
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link href="https://fonts.googleapis.com/css2?family=Kalnia:wght@100..700&display=swap" rel="stylesheet">
+    <title>Document</title>
+    @vite(include: ['resources/css/app.css'])
+</head>
+<body>
+<div class="min-h-screen flex items-center justify-center bg-gray-100">
+    <div class="max-w-md w-full bg-white p-6 rounded-lg shadow-lg">
+        <h1 class="text-3xl font-semibold text-center text-green-700 mb-4">Подтверждение Email</h1>
+        <p class="text-gray-700 text-center mb-6">На ваш адрес электронной почты было отправлено письмо с подтверждением.</p>
+        <p class="text-gray-600 text-center mb-4">Если вы не получили письмо, вы можете запросить новое.</p>
 
-    @if (session('status') == 'verification-link-sent')
-        <div class="mb-4 font-medium text-sm text-green-600 dark:text-green-400">
-            {{ __('A new verification link has been sent to the email address you provided during registration.') }}
-        </div>
-    @endif
+        @if (session('message'))
+            <div class="alert alert-success mb-4 text-white bg-green-500 p-3 rounded-md">
+                {{ session('message') }}
+            </div>
+        @endif
 
-    <div class="mt-4 flex items-center justify-between">
-        <form method="POST" action="{{ route('verification.send') }}">
+        <form action="{{ route('verification.resend') }}" method="POST">
             @csrf
-
-            <div>
-                <x-primary-button>
-                    {{ __('Resend Verification Email') }}
-                </x-primary-button>
+            <div class="flex justify-center">
+                <button type="submit" class="w-full px-6 py-3 bg-green-600 text-white font-semibold rounded-md hover:bg-green-700 transition duration-200">
+                    Повторно отправить письмо
+                </button>
             </div>
         </form>
-
-        <form method="POST" action="{{ route('logout') }}">
-            @csrf
-
-            <button type="submit" class="underline text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:focus:ring-offset-gray-800">
-                {{ __('Log Out') }}
-            </button>
-        </form>
     </div>
-</x-guest-layout>
+</div>
+</body>
+</html>
+
+

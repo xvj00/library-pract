@@ -1,15 +1,18 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
 use App\Enums\Role;
+use App\Http\Controllers\Controller;
+use App\Http\Controllers\FileDoesNotExist;
+use App\Http\Controllers\FileIsTooBig;
 use App\Http\Requests\UserStoreRequest;
 use App\Http\Requests\UserUpdateRequest;
 use App\Http\Requests\UserUpdateRoleRequest;
 use App\Models\User;
 use Illuminate\Http\Request;
 
-class AdminController extends Controller
+class UserController extends Controller
 {
     public function index(Request $request)
     {
@@ -19,9 +22,9 @@ class AdminController extends Controller
             $searchTerm = '%' . $request->search . '%';
 
             $users->where(function ($query) use ($searchTerm) {
-                $query->where('name', 'ilike', $searchTerm)
-                    ->orWhere('email', 'ilike', $searchTerm)
-                    ->orWhere('role', 'ilike', $searchTerm);
+                $query->where('name', 'like', $searchTerm)
+                    ->orWhere('email', 'like', $searchTerm)
+                    ->orWhere('role', 'like', $searchTerm);
             });
         }
 
@@ -51,11 +54,11 @@ class AdminController extends Controller
         return view('components.Admin.edit', compact('admin'));
     }
 
-    public function update(UserUpdateRequest $request, User $admin)
+    public function update(UserUpdateRequest $request, User $user)
     {
         $data = $request->validated();
 
-        if ($admin->role === Role::ADMIN->value){
+        if ($user->role === Role::ADMIN->value){
             return redirect()->route('admin.index')->withErrors(['message' => 'Вы не можете изменить роль администратора']);
         }
         else {
@@ -66,15 +69,15 @@ class AdminController extends Controller
                 unset($data['password']);
             }
 
-            $admin->update($data);
+            $user->update($data);
             return redirect()->route('admin.index');
         }
     }
 
 
-    public function destroy(User $admin)
+    public function destroy(User $user)
     {
-        $admin->delete();
+        $user->delete();
         return redirect()->route('admin.index');
     }
 
