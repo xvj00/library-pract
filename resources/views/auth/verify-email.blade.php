@@ -7,7 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link href="https://fonts.googleapis.com/css2?family=Kalnia:wght@100..700&display=swap" rel="stylesheet">
     <title>Document</title>
-    @vite(include: ['resources/css/app.css'])
+    @vite('resources/css/app.css')
 </head>
 <body>
 <div class="min-h-screen flex items-center justify-center bg-gray-100">
@@ -22,7 +22,7 @@
             </div>
         @endif
 
-        <form action="{{ route('verification.resend') }}" method="POST">
+        <form action="{{ route('verification.send') }}" method="POST">
             @csrf
             <div class="flex justify-center">
                 <button type="submit" class="w-full px-6 py-3 bg-green-600 text-white font-semibold rounded-md hover:bg-green-700 transition duration-200">
