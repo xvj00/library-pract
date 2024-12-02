@@ -53,10 +53,14 @@
 
     <!-- Ссылка на регистрацию -->
     <div class="text-center mt-6">
+        <a href="{{ route('password.request') }}" class="text-green-500 hover:underline">
+            Забыли пароль?
+        </a>
         <p class="text-gray-600">Нет аккаунта?
             <a href="/register"
                class="text-green-500 font-semibold hover:text-green-600 transition-colors">Регистрация</a>
         </p>
+
     </div>
 </main>
 

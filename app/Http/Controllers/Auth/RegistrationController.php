@@ -26,7 +26,7 @@ class RegistrationController extends Controller
 
         Auth::login($user);
         event(new Registered($user));
-        return redirect()->route('book.index');
+        return redirect()->route('/');
     }
 
 }

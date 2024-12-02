@@ -4,22 +4,23 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\LoginRequest;
-
 use Illuminate\Support\Facades\Auth;
 
 class LoginController extends Controller
 {
-    public function create(){
+    public function create()
+    {
         return view('pages.auth.log_in');
     }
 
-    public function login(LoginRequest $request){
+    public function login(LoginRequest $request)
+    {
         $data = $request->validated();
         $remember = $request->has('remember');
 
         if (Auth::attempt($data, $remember)) {
             $request->session()->regenerate();
-            return redirect()->route('book.index');
+            return redirect('/');
         }
         return redirect()->back()->withInput()->withErrors(['message' => 'Неправильный логин или пароль']);
     }
@@ -29,6 +30,6 @@ class LoginController extends Controller
         Auth::logout();
         request()->session()->invalidate();
         request()->session()->regenerateToken();
-        return redirect()->route('book.catalog');
+        return redirect('/');
     }
 }
