@@ -21,6 +21,10 @@
         @auth
             <!-- Ссылка на личный кабинет -->
             <a href="{{ route('profile.edit') }}" class="text-blue-500 hover:underline mt-2">Личный кабинет</a>
+            <form action="{{ route('logout') }}" method="POST" class="relative w-full md:w-auto max-w-[250px]">
+                @csrf
+                <button type="submit" class="text-black hover:underline">Выход</button>
+            </form>
         @else
             <!-- Кнопки Вход и Регистрация -->
             <div class="flex space-x-4 mt-2">
@@ -32,6 +36,9 @@
                    class="px-4 py-2 bg-blue-500 text-white rounded-md shadow-md hover:bg-blue-600 transition">
                     Регистрация
                 </a>
+
+
+
             </div>
         @endauth
     </div>

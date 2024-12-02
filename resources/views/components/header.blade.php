@@ -21,6 +21,7 @@
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path>
                         </svg>
                     </button>
+
                 </div>
 
                 <!-- Основные ссылки -->
@@ -41,6 +42,7 @@
                         @endif
                     @endauth
                 </nav>
+
 
                 <!-- Поиск -->
 {{--                <div class="flex w-full justify-center md:justify-end col-span-3 md:col-span-1 mt-4 md:mt-0">--}}
